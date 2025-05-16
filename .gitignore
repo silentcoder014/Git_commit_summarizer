@@ -1,0 +1,10 @@
+venv
+local2.txt
+pycaches
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+sample.txt
+commit_history_fetcher.py.bk
+tools/git_commit_history_fetcher.py.bk

@@ -1,0 +1,18 @@
+{
+  "server": {
+    "host": "0.0.0.0",
+    "port": 11434
+  },
+  "model": "mistral-small3.1",
+  "tools": [
+    {
+      "name": "gitHistorySummarizer",
+      "description": "Summarizes GitLab commit history",
+      "input_schema": {
+        "type": "string",
+        "description": "List of commit messages"
+      },
+      "handler": "tools/git_summarizer.py"
+    }
+  ]
+}
