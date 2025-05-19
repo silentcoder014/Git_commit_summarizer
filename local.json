@@ -10,7 +10,7 @@
       "description": "Summarizes GitLab commit history",
       "input_schema": {
         "type": "string",
-        "description": "List of commit messages"
+        "description": "List of commit messages or diff text "
       },
       "handler": "tools/git_summarizer.py"
     }

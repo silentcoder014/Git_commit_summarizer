@@ -1,0 +1,1159 @@
+[
+  {
+    "commit": {
+      "id": "8ea56e1289db8c0de14208c47cac083470692a40",
+      "short_id": "8ea56e12",
+      "created_at": "2025-05-16T03:55:41.000+00:00",
+      "parent_ids": [
+        "2dd279f180b8eb9f73860430852a48f4f792c2e2",
+        "def412d6ebc5cb8d4f8f8e8124cc494b91ef5203"
+      ],
+      "title": "Merge branch 'kivicare/view-clinic' into 'kivicare_develop'",
+      "message": "Merge branch 'kivicare/view-clinic' into 'kivicare_develop'\n\nclinic view changes\n\nSee merge request ashokj/kivicare-admin!9",
+      "author_name": "ashok jat",
+      "author_email": "ashok.jat@hashstudioz.com",
+      "authored_date": "2025-05-16T03:55:41.000+00:00",
+      "committer_name": "ashok jat",
+      "committer_email": "ashok.jat@hashstudioz.com",
+      "committed_date": "2025-05-16T03:55:41.000+00:00",
+      "trailers": {},
+      "extended_trailers": {},
+      "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/8ea56e1289db8c0de14208c47cac083470692a40"
+    },
+    "commits": [
+      {
+        "id": "def412d6ebc5cb8d4f8f8e8124cc494b91ef5203",
+        "short_id": "def412d6",
+        "created_at": "2025-05-16T09:24:32.000+05:30",
+        "parent_ids": [
+          "2dd279f180b8eb9f73860430852a48f4f792c2e2"
+        ],
+        "title": "clinic view changes",
+        "message": "clinic view changes\n",
+        "author_name": "ashok-jat",
+        "author_email": "ashok.jat@hashstudioz.com",
+        "authored_date": "2025-05-16T09:24:32.000+05:30",
+        "committer_name": "ashok-jat",
+        "committer_email": "ashok.jat@hashstudioz.com",
+        "committed_date": "2025-05-16T09:24:32.000+05:30",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/def412d6ebc5cb8d4f8f8e8124cc494b91ef5203"
+      },
+      {
+        "id": "8ea56e1289db8c0de14208c47cac083470692a40",
+        "short_id": "8ea56e12",
+        "created_at": "2025-05-16T03:55:41.000+00:00",
+        "parent_ids": [
+          "2dd279f180b8eb9f73860430852a48f4f792c2e2",
+          "def412d6ebc5cb8d4f8f8e8124cc494b91ef5203"
+        ],
+        "title": "Merge branch 'kivicare/view-clinic' into 'kivicare_develop'",
+        "message": "Merge branch 'kivicare/view-clinic' into 'kivicare_develop'\n\nclinic view changes\n\nSee merge request ashokj/kivicare-admin!9",
+        "author_name": "ashok jat",
+        "author_email": "ashok.jat@hashstudioz.com",
+        "authored_date": "2025-05-16T03:55:41.000+00:00",
+        "committer_name": "ashok jat",
+        "committer_email": "ashok.jat@hashstudioz.com",
+        "committed_date": "2025-05-16T03:55:41.000+00:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/8ea56e1289db8c0de14208c47cac083470692a40"
+      }
+    ],
+    "diffs": [
+      {
+        "diff": "@@ -1,2 +1,8 @@\n-<button mat-raised-button color=\"primary\" (click)=\"edit()\">Edit</button>\n-    <button mat-raised-button color=\"warn\" (click)=\"delete()\">Delete</button>\n\\ No newline at end of file\n+<div class=\"row\">\n+    <div>\n+       <span class=\"p-1 cursor-pointer\"> <i class='fas fa-eye' (click)=\"view()\"></i></span>\n+       <span class=\"p-1 cursor-pointer\"> <i class='far fa-edit' (click)=\"edit()\"></i></span>\n+       <span class=\"p-1 cursor-pointer\"> <i class='far fa-trash-alt' (click)=\"delete()\"></i></span>\n+    </div>\n+\n+</div>\n\\ No newline at end of file\n",
+        "new_path": "src/app/shared/components/action-cell-renderer/action-cell-renderer.component.html",
+        "old_path": "src/app/shared/components/action-cell-renderer/action-cell-renderer.component.html",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -21,6 +21,10 @@ params: any;\n     return true;\n   }\n \n+    view() {\n+    this.params.context.componentParent.view(this.params.data.id);\n+  }\n+\n   edit() {\n     this.params.context.componentParent.edit(this.params.data.id);\n   }\n",
+        "new_path": "src/app/shared/components/action-cell-renderer/action-cell-renderer.component.ts",
+        "old_path": "src/app/shared/components/action-cell-renderer/action-cell-renderer.component.ts",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -0,0 +1,63 @@\n+\n+<div class=\"clinic-detail-dialog-container\">\n+    <!-- Header -->\n+    <div class=\"clinic-detail-header\">\n+        <h3>Clinic Detail</h3>\n+        <button class=\"clinic-detail-close-button\" (click)=\"closeDialog()\">\u2715</button>\n+    </div>\n+\n+    <!-- About Clinic Section -->\n+    <div class=\"clinic-detail-section\">\n+        <h2 class=\"clinic-detail-section-title\">About Clinic</h2>\n+        <div class=\"clinic-detail-about\">\n+            <img src=\"assets/clinic-image.jpg\" alt=\"Clinic Image\" class=\"clinic-detail-image\" />\n+\n+            <div class=\"clinic-detail-content\">\n+                <h3 class=\"clinic-detail-name\">{{clinicData?.name}}</h3>\n+                <div class=\"clinic-detail-contact\">\n+                    <div class=\"clinic-detail-contact-item\">\n+                        \ud83d\udce7 <a href=\"\" class=\"clinic-detail-email\">{{clinicData?.email}}</a>\n+                    </div>\n+                    <div class=\"clinic-detail-contact-item\">\n+                        \ud83d\udcde <a href=\"\" class=\"clinic-detail-phone\">{{clinicData?.contact_number}}</a>\n+                    </div>\n+                    <div class=\"clinic-detail-contact-item\">\n+                        \ud83d\udccd {{clinicData?.address}}\n+                    </div>\n+                </div>\n+\n+                <div class=\"clinic-detail-address\">\n+                    <div><strong>Postal Code:</strong> {{clinicData?.pincode}}</div>\n+                    <div><strong>City:</strong> {{getCityName(clinicData?.city)}}</div>\n+                    <div><strong>State:</strong> {{getStateName(clinicData?.state)}}</div>\n+                    <div><strong>Country:</strong> {{getCountryName(clinicData?.country)}}</div>\n+                </div>\n+\n+                <div class=\"clinic-detail-description\">\n+                    <strong>Description:</strong>\n+                    {{clinicData?.description}}. \ud83c\udfe5\ud83e\uddd1\u200d\u2695\ufe0f\n+                </div>\n+\n+                <div class=\"clinic-detail-meta\">\n+                    <span><strong>Speciality:</strong> Specialist Clinics</span>\n+                    <span><strong>Time Slot:</strong> {{clinicData?.time_slot}} Min.</span>\n+                </div>\n+            </div>\n+        </div>\n+    </div>\n+\n+    <!-- Sessions Section -->\n+    <div class=\"clinic-detail-section\">\n+        <h2 class=\"clinic-detail-section-title\">Sessions</h2>\n+        <div class=\"clinic-detail-sessions\">\n+            <div class=\"clinic-detail-session-item\" style=\"border-bottom: 1px solid #c8c5c53d;\">\n+                <span>Monday - Saturday</span>\n+                <span>9:00 AM - 6:00 PM</span>\n+            </div>\n+            <div class=\"clinic-detail-session-item clinic-detail-session-closed\">\n+                <span>Sunday</span>\n+                <span>Closed</span>\n+            </div>\n+        </div>\n+    </div>\n+</div>\n\\ No newline at end of file\n",
+        "new_path": "src/app/views/clinics/clinic-view/clinic-view.component.html",
+        "old_path": "src/app/views/clinics/clinic-view/clinic-view.component.html",
+        "a_mode": "0",
+        "b_mode": "100644",
+        "new_file": true,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -0,0 +1,115 @@\n+\n+.clinic-detail-dialog-container {\n+  padding: 24px;\n+  background-color: #f9fafb;\n+  border-radius: 10px;\n+  font-family: 'Segoe UI', sans-serif;\n+}\n+\n+.clinic-detail-header {\n+  display: flex;\n+  justify-content: space-between;\n+  align-items: center;\n+  margin-bottom: 24px;\n+  border-bottom: 1px solid #c8c5c53d;\n+}\n+\n+.clinic-detail-close-button {\n+  background: none;\n+  border: none;\n+  font-size: 20px;\n+  cursor: pointer;\n+}\n+\n+.clinic-detail-section {\n+  margin-bottom: 32px;\n+}\n+\n+.clinic-detail-section-title {\n+  font-size: 18px;\n+  font-weight: 600;\n+  margin-bottom: 16px;\n+  color: #333;\n+}\n+\n+.clinic-detail-about {\n+  display: flex;\n+  gap: 20px;\n+  background: #ffffff;\n+  padding: 20px;\n+  border-radius: 8px;\n+}\n+\n+.clinic-detail-image {\n+  width: 100px;\n+  height: 100px;\n+  border-radius: 50%;\n+  object-fit: cover;\n+  border: 1px solid #ccc;\n+}\n+\n+.clinic-detail-content {\n+  flex: 1;\n+}\n+\n+.clinic-detail-name {\n+  font-size: 20px;\n+  font-weight: 600;\n+  margin-bottom: 10px;\n+  color: #222;\n+}\n+\n+.clinic-detail-contact {\n+  display: flex;\n+  flex-direction: column;\n+  margin-bottom: 10px;\n+}\n+\n+.clinic-detail-contact-item {\n+  margin-bottom: 4px;\n+  font-size: 14px;\n+}\n+\n+.clinic-detail-email, .clinic-detail-phone {\n+  text-decoration: none;\n+  color: #007bff;\n+}\n+\n+.clinic-detail-address {\n+  display: flex;\n+  flex-wrap: wrap;\n+  gap: 16px;\n+  font-size: 14px;\n+  margin-bottom: 10px;\n+}\n+\n+.clinic-detail-description {\n+  font-size: 14px;\n+  margin-bottom: 10px;\n+}\n+\n+.clinic-detail-meta {\n+  font-size: 14px;\n+  display: flex;\n+  gap: 40px;\n+}\n+\n+.clinic-detail-sessions {\n+  background: #ffffff;\n+  border-radius: 8px;\n+  padding: 16px;\n+  display: flex;\n+  flex-direction: column;\n+//   gap: 10px;\n+}\n+\n+.clinic-detail-session-item {\n+  display: flex;\n+  justify-content: space-between;\n+  font-size: 14px;\n+  padding: 20px 0;\n+}\n+\n+.clinic-detail-session-closed {\n+  color: #d9534f;\n+}\n\\ No newline at end of file\n",
+        "new_path": "src/app/views/clinics/clinic-view/clinic-view.component.scss",
+        "old_path": "src/app/views/clinics/clinic-view/clinic-view.component.scss",
+        "a_mode": "0",
+        "b_mode": "100644",
+        "new_file": true,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -0,0 +1,23 @@\n+import { ComponentFixture, TestBed } from '@angular/core/testing';\n+\n+import { ClinicViewComponent } from './clinic-view.component';\n+\n+describe('ClinicViewComponent', () => {\n+  let component: ClinicViewComponent;\n+  let fixture: ComponentFixture<ClinicViewComponent>;\n+\n+  beforeEach(async () => {\n+    await TestBed.configureTestingModule({\n+      imports: [ClinicViewComponent]\n+    })\n+    .compileComponents();\n+\n+    fixture = TestBed.createComponent(ClinicViewComponent);\n+    component = fixture.componentInstance;\n+    fixture.detectChanges();\n+  });\n+\n+  it('should create', () => {\n+    expect(component).toBeTruthy();\n+  });\n+});\n",
+        "new_path": "src/app/views/clinics/clinic-view/clinic-view.component.spec.ts",
+        "old_path": "src/app/views/clinics/clinic-view/clinic-view.component.spec.ts",
+        "a_mode": "0",
+        "b_mode": "100644",
+        "new_file": true,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -0,0 +1,86 @@\n+\n+import { Component, EventEmitter, Input, Output } from '@angular/core';\n+import { MatIconModule } from '@angular/material/icon';\n+import { MatCardModule } from '@angular/material/card';\n+import { MatButtonModule } from '@angular/material/button';\n+import { ClinicService } from '../service/clinic.service';\n+import { CustomService } from '@/app/shared/service/custom.service';\n+import { forkJoin } from 'rxjs';\n+\n+@Component({\n+  selector: 'app-clinic-view',\n+  standalone: true,\n+  imports: [MatIconModule, MatCardModule,\n+    MatButtonModule,],\n+  templateUrl: './clinic-view.component.html',\n+  styleUrl: './clinic-view.component.scss'\n+})\n+export class ClinicViewComponent {\n+\n+  private currentClinicId: string | null = null;\n+  @Output() close = new EventEmitter<void>();\n+\n+  @Input()\n+  set clinicId(value: string | null) {\n+    this.currentClinicId = value;\n+    if (value) {\n+      this.fetchClinicDetails(value); // Trigger API call when clinicId changes\n+    }\n+  }\n+\n+  get clinicId(): string | null {\n+    return this.currentClinicId;\n+  }\n+\n+  clinicData:any;\n+  countryArray: any[] = [];\n+  stateArray: any[] = [];\n+  cityArray: any[] = [];\n+  constructor(private clinicService: ClinicService, private customService: CustomService,) {\n+\n+  }\n+\n+  ngOnInit() {\n+    this.getCountryData();\n+  }\n+\n+  fetchClinicDetails(id: string): void {\n+    this.clinicService.getClinicData(this.clinicId).subscribe((clinic: any) => {\n+      this.clinicData = clinic;\n+      // Load states and cities together\n+      forkJoin({\n+        states: this.customService.getStateList(clinic.country),\n+        cities: this.customService.getCityList(clinic.state),\n+      }).subscribe(({ states, cities }) => {\n+        this.stateArray = states;\n+        this.cityArray = cities;\n+      });\n+    });\n+  }\n+\n+    getCountryData() {\n+    this.customService.getCountryList().subscribe(country => {\n+      this.countryArray = country;\n+    });\n+  }\n+\n+  getCountryName(id:Number){\n+    const country = this.countryArray.find((obj:any)=>obj.id == id);\n+    return country?.name;\n+  }\n+\n+  getStateName(id:Number){\n+    const state = this.stateArray.find((obj:any)=>obj.id == id);\n+    return state?.name;\n+  }\n+\n+  getCityName(id:Number){\n+    const city = this.cityArray.find((obj:any)=>obj.id == id);\n+    return city?.name;\n+  }\n+  \n+  closeDialog(): void {\n+    this.close.emit(); // Emit the close event to the parent\n+  }\n+\n+}\n\\ No newline at end of file\n",
+        "new_path": "src/app/views/clinics/clinic-view/clinic-view.component.ts",
+        "old_path": "src/app/views/clinics/clinic-view/clinic-view.component.ts",
+        "a_mode": "0",
+        "b_mode": "100644",
+        "new_file": true,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -40,5 +40,11 @@ export class ClinicService {\n     return this.http\n       .delete<any>(`${this.apiUrl}/admin/clinics/${id}`, { observe: 'response' })\n       .pipe(map((res) => res.body));\n+  }\n+\n+     deleteAllClinic(): Observable<any> {\n+    return this.http\n+      .delete<any>(`${this.apiUrl}/admin/clinics`, { observe: 'response' })\n+      .pipe(map((res) => res.body));\n   }\n }\n",
+        "new_path": "src/app/views/clinics/service/clinic.service.ts",
+        "old_path": "src/app/views/clinics/service/clinic.service.ts",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -7,6 +7,7 @@\n   <base href=\"/\" />\n   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n   <link rel=\"icon\" type=\"image/x-icon\" href=\"favicon.ico\" />\n+  <link href=\"https://fonts.googleapis.com/icon?family=Material+Icons\" rel=\"stylesheet\">\n   <script src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyAbvyBxmMbFhrzP9Z8moyYr6dCr-pzjhBE\"></script>\n   <style>\n     #splash-screen {\n",
+        "new_path": "src/index.html",
+        "old_path": "src/index.html",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      }
+    ],
+    "compare_timeout": false,
+    "compare_same_ref": false,
+    "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/compare/2dd279f180b8eb9f73860430852a48f4f792c2e2...8ea56e1289db8c0de14208c47cac083470692a40"
+  },
+  {
+    "commit": {
+      "id": "def412d6ebc5cb8d4f8f8e8124cc494b91ef5203",
+      "short_id": "def412d6",
+      "created_at": "2025-05-16T09:24:32.000+05:30",
+      "parent_ids": [
+        "2dd279f180b8eb9f73860430852a48f4f792c2e2"
+      ],
+      "title": "clinic view changes",
+      "message": "clinic view changes\n",
+      "author_name": "ashok-jat",
+      "author_email": "ashok.jat@hashstudioz.com",
+      "authored_date": "2025-05-16T09:24:32.000+05:30",
+      "committer_name": "ashok-jat",
+      "committer_email": "ashok.jat@hashstudioz.com",
+      "committed_date": "2025-05-16T09:24:32.000+05:30",
+      "trailers": {},
+      "extended_trailers": {},
+      "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/def412d6ebc5cb8d4f8f8e8124cc494b91ef5203"
+    },
+    "commits": [
+      {
+        "id": "def412d6ebc5cb8d4f8f8e8124cc494b91ef5203",
+        "short_id": "def412d6",
+        "created_at": "2025-05-16T09:24:32.000+05:30",
+        "parent_ids": [
+          "2dd279f180b8eb9f73860430852a48f4f792c2e2"
+        ],
+        "title": "clinic view changes",
+        "message": "clinic view changes\n",
+        "author_name": "ashok-jat",
+        "author_email": "ashok.jat@hashstudioz.com",
+        "authored_date": "2025-05-16T09:24:32.000+05:30",
+        "committer_name": "ashok-jat",
+        "committer_email": "ashok.jat@hashstudioz.com",
+        "committed_date": "2025-05-16T09:24:32.000+05:30",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/def412d6ebc5cb8d4f8f8e8124cc494b91ef5203"
+      }
+    ],
+    "diffs": [
+      {
+        "diff": "@@ -1,2 +1,8 @@\n-<button mat-raised-button color=\"primary\" (click)=\"edit()\">Edit</button>\n-    <button mat-raised-button color=\"warn\" (click)=\"delete()\">Delete</button>\n\\ No newline at end of file\n+<div class=\"row\">\n+    <div>\n+       <span class=\"p-1 cursor-pointer\"> <i class='fas fa-eye' (click)=\"view()\"></i></span>\n+       <span class=\"p-1 cursor-pointer\"> <i class='far fa-edit' (click)=\"edit()\"></i></span>\n+       <span class=\"p-1 cursor-pointer\"> <i class='far fa-trash-alt' (click)=\"delete()\"></i></span>\n+    </div>\n+\n+</div>\n\\ No newline at end of file\n",
+        "new_path": "src/app/shared/components/action-cell-renderer/action-cell-renderer.component.html",
+        "old_path": "src/app/shared/components/action-cell-renderer/action-cell-renderer.component.html",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -21,6 +21,10 @@ params: any;\n     return true;\n   }\n \n+    view() {\n+    this.params.context.componentParent.view(this.params.data.id);\n+  }\n+\n   edit() {\n     this.params.context.componentParent.edit(this.params.data.id);\n   }\n",
+        "new_path": "src/app/shared/components/action-cell-renderer/action-cell-renderer.component.ts",
+        "old_path": "src/app/shared/components/action-cell-renderer/action-cell-renderer.component.ts",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -0,0 +1,63 @@\n+\n+<div class=\"clinic-detail-dialog-container\">\n+    <!-- Header -->\n+    <div class=\"clinic-detail-header\">\n+        <h3>Clinic Detail</h3>\n+        <button class=\"clinic-detail-close-button\" (click)=\"closeDialog()\">\u2715</button>\n+    </div>\n+\n+    <!-- About Clinic Section -->\n+    <div class=\"clinic-detail-section\">\n+        <h2 class=\"clinic-detail-section-title\">About Clinic</h2>\n+        <div class=\"clinic-detail-about\">\n+            <img src=\"assets/clinic-image.jpg\" alt=\"Clinic Image\" class=\"clinic-detail-image\" />\n+\n+            <div class=\"clinic-detail-content\">\n+                <h3 class=\"clinic-detail-name\">{{clinicData?.name}}</h3>\n+                <div class=\"clinic-detail-contact\">\n+                    <div class=\"clinic-detail-contact-item\">\n+                        \ud83d\udce7 <a href=\"\" class=\"clinic-detail-email\">{{clinicData?.email}}</a>\n+                    </div>\n+                    <div class=\"clinic-detail-contact-item\">\n+                        \ud83d\udcde <a href=\"\" class=\"clinic-detail-phone\">{{clinicData?.contact_number}}</a>\n+                    </div>\n+                    <div class=\"clinic-detail-contact-item\">\n+                        \ud83d\udccd {{clinicData?.address}}\n+                    </div>\n+                </div>\n+\n+                <div class=\"clinic-detail-address\">\n+                    <div><strong>Postal Code:</strong> {{clinicData?.pincode}}</div>\n+                    <div><strong>City:</strong> {{getCityName(clinicData?.city)}}</div>\n+                    <div><strong>State:</strong> {{getStateName(clinicData?.state)}}</div>\n+                    <div><strong>Country:</strong> {{getCountryName(clinicData?.country)}}</div>\n+                </div>\n+\n+                <div class=\"clinic-detail-description\">\n+                    <strong>Description:</strong>\n+                    {{clinicData?.description}}. \ud83c\udfe5\ud83e\uddd1\u200d\u2695\ufe0f\n+                </div>\n+\n+                <div class=\"clinic-detail-meta\">\n+                    <span><strong>Speciality:</strong> Specialist Clinics</span>\n+                    <span><strong>Time Slot:</strong> {{clinicData?.time_slot}} Min.</span>\n+                </div>\n+            </div>\n+        </div>\n+    </div>\n+\n+    <!-- Sessions Section -->\n+    <div class=\"clinic-detail-section\">\n+        <h2 class=\"clinic-detail-section-title\">Sessions</h2>\n+        <div class=\"clinic-detail-sessions\">\n+            <div class=\"clinic-detail-session-item\" style=\"border-bottom: 1px solid #c8c5c53d;\">\n+                <span>Monday - Saturday</span>\n+                <span>9:00 AM - 6:00 PM</span>\n+            </div>\n+            <div class=\"clinic-detail-session-item clinic-detail-session-closed\">\n+                <span>Sunday</span>\n+                <span>Closed</span>\n+            </div>\n+        </div>\n+    </div>\n+</div>\n\\ No newline at end of file\n",
+        "new_path": "src/app/views/clinics/clinic-view/clinic-view.component.html",
+        "old_path": "src/app/views/clinics/clinic-view/clinic-view.component.html",
+        "a_mode": "0",
+        "b_mode": "100644",
+        "new_file": true,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -0,0 +1,115 @@\n+\n+.clinic-detail-dialog-container {\n+  padding: 24px;\n+  background-color: #f9fafb;\n+  border-radius: 10px;\n+  font-family: 'Segoe UI', sans-serif;\n+}\n+\n+.clinic-detail-header {\n+  display: flex;\n+  justify-content: space-between;\n+  align-items: center;\n+  margin-bottom: 24px;\n+  border-bottom: 1px solid #c8c5c53d;\n+}\n+\n+.clinic-detail-close-button {\n+  background: none;\n+  border: none;\n+  font-size: 20px;\n+  cursor: pointer;\n+}\n+\n+.clinic-detail-section {\n+  margin-bottom: 32px;\n+}\n+\n+.clinic-detail-section-title {\n+  font-size: 18px;\n+  font-weight: 600;\n+  margin-bottom: 16px;\n+  color: #333;\n+}\n+\n+.clinic-detail-about {\n+  display: flex;\n+  gap: 20px;\n+  background: #ffffff;\n+  padding: 20px;\n+  border-radius: 8px;\n+}\n+\n+.clinic-detail-image {\n+  width: 100px;\n+  height: 100px;\n+  border-radius: 50%;\n+  object-fit: cover;\n+  border: 1px solid #ccc;\n+}\n+\n+.clinic-detail-content {\n+  flex: 1;\n+}\n+\n+.clinic-detail-name {\n+  font-size: 20px;\n+  font-weight: 600;\n+  margin-bottom: 10px;\n+  color: #222;\n+}\n+\n+.clinic-detail-contact {\n+  display: flex;\n+  flex-direction: column;\n+  margin-bottom: 10px;\n+}\n+\n+.clinic-detail-contact-item {\n+  margin-bottom: 4px;\n+  font-size: 14px;\n+}\n+\n+.clinic-detail-email, .clinic-detail-phone {\n+  text-decoration: none;\n+  color: #007bff;\n+}\n+\n+.clinic-detail-address {\n+  display: flex;\n+  flex-wrap: wrap;\n+  gap: 16px;\n+  font-size: 14px;\n+  margin-bottom: 10px;\n+}\n+\n+.clinic-detail-description {\n+  font-size: 14px;\n+  margin-bottom: 10px;\n+}\n+\n+.clinic-detail-meta {\n+  font-size: 14px;\n+  display: flex;\n+  gap: 40px;\n+}\n+\n+.clinic-detail-sessions {\n+  background: #ffffff;\n+  border-radius: 8px;\n+  padding: 16px;\n+  display: flex;\n+  flex-direction: column;\n+//   gap: 10px;\n+}\n+\n+.clinic-detail-session-item {\n+  display: flex;\n+  justify-content: space-between;\n+  font-size: 14px;\n+  padding: 20px 0;\n+}\n+\n+.clinic-detail-session-closed {\n+  color: #d9534f;\n+}\n\\ No newline at end of file\n",
+        "new_path": "src/app/views/clinics/clinic-view/clinic-view.component.scss",
+        "old_path": "src/app/views/clinics/clinic-view/clinic-view.component.scss",
+        "a_mode": "0",
+        "b_mode": "100644",
+        "new_file": true,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -0,0 +1,23 @@\n+import { ComponentFixture, TestBed } from '@angular/core/testing';\n+\n+import { ClinicViewComponent } from './clinic-view.component';\n+\n+describe('ClinicViewComponent', () => {\n+  let component: ClinicViewComponent;\n+  let fixture: ComponentFixture<ClinicViewComponent>;\n+\n+  beforeEach(async () => {\n+    await TestBed.configureTestingModule({\n+      imports: [ClinicViewComponent]\n+    })\n+    .compileComponents();\n+\n+    fixture = TestBed.createComponent(ClinicViewComponent);\n+    component = fixture.componentInstance;\n+    fixture.detectChanges();\n+  });\n+\n+  it('should create', () => {\n+    expect(component).toBeTruthy();\n+  });\n+});\n",
+        "new_path": "src/app/views/clinics/clinic-view/clinic-view.component.spec.ts",
+        "old_path": "src/app/views/clinics/clinic-view/clinic-view.component.spec.ts",
+        "a_mode": "0",
+        "b_mode": "100644",
+        "new_file": true,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -0,0 +1,86 @@\n+\n+import { Component, EventEmitter, Input, Output } from '@angular/core';\n+import { MatIconModule } from '@angular/material/icon';\n+import { MatCardModule } from '@angular/material/card';\n+import { MatButtonModule } from '@angular/material/button';\n+import { ClinicService } from '../service/clinic.service';\n+import { CustomService } from '@/app/shared/service/custom.service';\n+import { forkJoin } from 'rxjs';\n+\n+@Component({\n+  selector: 'app-clinic-view',\n+  standalone: true,\n+  imports: [MatIconModule, MatCardModule,\n+    MatButtonModule,],\n+  templateUrl: './clinic-view.component.html',\n+  styleUrl: './clinic-view.component.scss'\n+})\n+export class ClinicViewComponent {\n+\n+  private currentClinicId: string | null = null;\n+  @Output() close = new EventEmitter<void>();\n+\n+  @Input()\n+  set clinicId(value: string | null) {\n+    this.currentClinicId = value;\n+    if (value) {\n+      this.fetchClinicDetails(value); // Trigger API call when clinicId changes\n+    }\n+  }\n+\n+  get clinicId(): string | null {\n+    return this.currentClinicId;\n+  }\n+\n+  clinicData:any;\n+  countryArray: any[] = [];\n+  stateArray: any[] = [];\n+  cityArray: any[] = [];\n+  constructor(private clinicService: ClinicService, private customService: CustomService,) {\n+\n+  }\n+\n+  ngOnInit() {\n+    this.getCountryData();\n+  }\n+\n+  fetchClinicDetails(id: string): void {\n+    this.clinicService.getClinicData(this.clinicId).subscribe((clinic: any) => {\n+      this.clinicData = clinic;\n+      // Load states and cities together\n+      forkJoin({\n+        states: this.customService.getStateList(clinic.country),\n+        cities: this.customService.getCityList(clinic.state),\n+      }).subscribe(({ states, cities }) => {\n+        this.stateArray = states;\n+        this.cityArray = cities;\n+      });\n+    });\n+  }\n+\n+    getCountryData() {\n+    this.customService.getCountryList().subscribe(country => {\n+      this.countryArray = country;\n+    });\n+  }\n+\n+  getCountryName(id:Number){\n+    const country = this.countryArray.find((obj:any)=>obj.id == id);\n+    return country?.name;\n+  }\n+\n+  getStateName(id:Number){\n+    const state = this.stateArray.find((obj:any)=>obj.id == id);\n+    return state?.name;\n+  }\n+\n+  getCityName(id:Number){\n+    const city = this.cityArray.find((obj:any)=>obj.id == id);\n+    return city?.name;\n+  }\n+  \n+  closeDialog(): void {\n+    this.close.emit(); // Emit the close event to the parent\n+  }\n+\n+}\n\\ No newline at end of file\n",
+        "new_path": "src/app/views/clinics/clinic-view/clinic-view.component.ts",
+        "old_path": "src/app/views/clinics/clinic-view/clinic-view.component.ts",
+        "a_mode": "0",
+        "b_mode": "100644",
+        "new_file": true,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -40,5 +40,11 @@ export class ClinicService {\n     return this.http\n       .delete<any>(`${this.apiUrl}/admin/clinics/${id}`, { observe: 'response' })\n       .pipe(map((res) => res.body));\n+  }\n+\n+     deleteAllClinic(): Observable<any> {\n+    return this.http\n+      .delete<any>(`${this.apiUrl}/admin/clinics`, { observe: 'response' })\n+      .pipe(map((res) => res.body));\n   }\n }\n",
+        "new_path": "src/app/views/clinics/service/clinic.service.ts",
+        "old_path": "src/app/views/clinics/service/clinic.service.ts",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -7,6 +7,7 @@\n   <base href=\"/\" />\n   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n   <link rel=\"icon\" type=\"image/x-icon\" href=\"favicon.ico\" />\n+  <link href=\"https://fonts.googleapis.com/icon?family=Material+Icons\" rel=\"stylesheet\">\n   <script src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyAbvyBxmMbFhrzP9Z8moyYr6dCr-pzjhBE\"></script>\n   <style>\n     #splash-screen {\n",
+        "new_path": "src/index.html",
+        "old_path": "src/index.html",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      }
+    ],
+    "compare_timeout": false,
+    "compare_same_ref": false,
+    "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/compare/2dd279f180b8eb9f73860430852a48f4f792c2e2...def412d6ebc5cb8d4f8f8e8124cc494b91ef5203"
+  },
+  {
+    "commit": {
+      "id": "2dd279f180b8eb9f73860430852a48f4f792c2e2",
+      "short_id": "2dd279f1",
+      "created_at": "2025-05-16T03:41:37.000+00:00",
+      "parent_ids": [
+        "9c84309d5869f81cbd4a3e1396fefce30f7d589d",
+        "da77a806c35b7051102330e5b68ee3222eb4fee8"
+      ],
+      "title": "Merge branch 'kivicare/clinic' into 'kivicare_develop'",
+      "message": "Merge branch 'kivicare/clinic' into 'kivicare_develop'\n\nclinic view changes not reflecting\n\nSee merge request ashokj/kivicare-admin!8",
+      "author_name": "ashok jat",
+      "author_email": "ashok.jat@hashstudioz.com",
+      "authored_date": "2025-05-16T03:41:37.000+00:00",
+      "committer_name": "ashok jat",
+      "committer_email": "ashok.jat@hashstudioz.com",
+      "committed_date": "2025-05-16T03:41:37.000+00:00",
+      "trailers": {},
+      "extended_trailers": {},
+      "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/2dd279f180b8eb9f73860430852a48f4f792c2e2"
+    },
+    "commits": [
+      {
+        "id": "52f66d2f7944eecabfa32ba4065498eff6e3a6a0",
+        "short_id": "52f66d2f",
+        "created_at": "2025-05-16T09:09:11.000+05:30",
+        "parent_ids": [
+          "5937e8c0071ede034ca4920f23cb63110de484dd"
+        ],
+        "title": "clinic view changes not reflecting",
+        "message": "clinic view changes not reflecting\n",
+        "author_name": "ashok-jat",
+        "author_email": "ashok.jat@hashstudioz.com",
+        "authored_date": "2025-05-16T09:09:11.000+05:30",
+        "committer_name": "ashok-jat",
+        "committer_email": "ashok.jat@hashstudioz.com",
+        "committed_date": "2025-05-16T09:09:11.000+05:30",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/52f66d2f7944eecabfa32ba4065498eff6e3a6a0"
+      },
+      {
+        "id": "da77a806c35b7051102330e5b68ee3222eb4fee8",
+        "short_id": "da77a806",
+        "created_at": "2025-05-16T09:11:15.000+05:30",
+        "parent_ids": [
+          "52f66d2f7944eecabfa32ba4065498eff6e3a6a0",
+          "9c84309d5869f81cbd4a3e1396fefce30f7d589d"
+        ],
+        "title": "Merge branch 'kivicare_develop' into kivicare/clinic",
+        "message": "Merge branch 'kivicare_develop' into kivicare/clinic\n",
+        "author_name": "ashok-jat",
+        "author_email": "ashok.jat@hashstudioz.com",
+        "authored_date": "2025-05-16T09:11:15.000+05:30",
+        "committer_name": "ashok-jat",
+        "committer_email": "ashok.jat@hashstudioz.com",
+        "committed_date": "2025-05-16T09:11:15.000+05:30",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/da77a806c35b7051102330e5b68ee3222eb4fee8"
+      },
+      {
+        "id": "2dd279f180b8eb9f73860430852a48f4f792c2e2",
+        "short_id": "2dd279f1",
+        "created_at": "2025-05-16T03:41:37.000+00:00",
+        "parent_ids": [
+          "9c84309d5869f81cbd4a3e1396fefce30f7d589d",
+          "da77a806c35b7051102330e5b68ee3222eb4fee8"
+        ],
+        "title": "Merge branch 'kivicare/clinic' into 'kivicare_develop'",
+        "message": "Merge branch 'kivicare/clinic' into 'kivicare_develop'\n\nclinic view changes not reflecting\n\nSee merge request ashokj/kivicare-admin!8",
+        "author_name": "ashok jat",
+        "author_email": "ashok.jat@hashstudioz.com",
+        "authored_date": "2025-05-16T03:41:37.000+00:00",
+        "committer_name": "ashok jat",
+        "committer_email": "ashok.jat@hashstudioz.com",
+        "committed_date": "2025-05-16T03:41:37.000+00:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/2dd279f180b8eb9f73860430852a48f4f792c2e2"
+      }
+    ],
+    "diffs": [],
+    "compare_timeout": false,
+    "compare_same_ref": false,
+    "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/compare/9c84309d5869f81cbd4a3e1396fefce30f7d589d...2dd279f180b8eb9f73860430852a48f4f792c2e2"
+  },
+  {
+    "commit": {
+      "id": "da77a806c35b7051102330e5b68ee3222eb4fee8",
+      "short_id": "da77a806",
+      "created_at": "2025-05-16T09:11:15.000+05:30",
+      "parent_ids": [
+        "52f66d2f7944eecabfa32ba4065498eff6e3a6a0",
+        "9c84309d5869f81cbd4a3e1396fefce30f7d589d"
+      ],
+      "title": "Merge branch 'kivicare_develop' into kivicare/clinic",
+      "message": "Merge branch 'kivicare_develop' into kivicare/clinic\n",
+      "author_name": "ashok-jat",
+      "author_email": "ashok.jat@hashstudioz.com",
+      "authored_date": "2025-05-16T09:11:15.000+05:30",
+      "committer_name": "ashok-jat",
+      "committer_email": "ashok.jat@hashstudioz.com",
+      "committed_date": "2025-05-16T09:11:15.000+05:30",
+      "trailers": {},
+      "extended_trailers": {},
+      "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/da77a806c35b7051102330e5b68ee3222eb4fee8"
+    },
+    "commits": [
+      {
+        "id": "8da71ef16a9a6888607d73eda1c2e4f8273816e6",
+        "short_id": "8da71ef1",
+        "created_at": "2025-05-13T04:42:27.000+00:00",
+        "parent_ids": [
+          "432e611f6723c7410ff698671c19071fc96c7afc",
+          "784ecef2a8bd01dd8524a6e9bd086d7f1c478233"
+        ],
+        "title": "Merge branch 'kivicare/clinic' into 'kivicare_develop'",
+        "message": "Merge branch 'kivicare/clinic' into 'kivicare_develop'\n\nedit feature\n\nSee merge request ashokj/kivicare-admin!1",
+        "author_name": "ashok jat",
+        "author_email": "ashok.jat@hashstudioz.com",
+        "authored_date": "2025-05-13T04:42:27.000+00:00",
+        "committer_name": "ashok jat",
+        "committer_email": "ashok.jat@hashstudioz.com",
+        "committed_date": "2025-05-13T04:42:27.000+00:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/8da71ef16a9a6888607d73eda1c2e4f8273816e6"
+      },
+      {
+        "id": "c2951cc335662f5401b8e1eca886a95179cbdbf5",
+        "short_id": "c2951cc3",
+        "created_at": "2025-05-13T12:57:54.000+00:00",
+        "parent_ids": [
+          "8da71ef16a9a6888607d73eda1c2e4f8273816e6",
+          "c2d334f9299faef15ecd6999515b98a31057e7b0"
+        ],
+        "title": "Merge branch 'kivicare/clinic' into 'kivicare_develop'",
+        "message": "Merge branch 'kivicare/clinic' into 'kivicare_develop'\n\nview clinic\n\nSee merge request ashokj/kivicare-admin!2",
+        "author_name": "ashok jat",
+        "author_email": "ashok.jat@hashstudioz.com",
+        "authored_date": "2025-05-13T12:57:54.000+00:00",
+        "committer_name": "ashok jat",
+        "committer_email": "ashok.jat@hashstudioz.com",
+        "committed_date": "2025-05-13T12:57:54.000+00:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/c2951cc335662f5401b8e1eca886a95179cbdbf5"
+      },
+      {
+        "id": "a2380fd2affbdfacba484ed55e74225bf839c263",
+        "short_id": "a2380fd2",
+        "created_at": "2025-05-14T10:13:50.000+05:30",
+        "parent_ids": [
+          "8da71ef16a9a6888607d73eda1c2e4f8273816e6"
+        ],
+        "title": "create doctor component",
+        "message": "create doctor component\n",
+        "author_name": "dheeraj",
+        "author_email": "dheeraj.pandey@hashstudioz.com",
+        "authored_date": "2025-05-14T10:13:50.000+05:30",
+        "committer_name": "dheeraj",
+        "committer_email": "dheeraj.pandey@hashstudioz.com",
+        "committed_date": "2025-05-14T10:13:50.000+05:30",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/a2380fd2affbdfacba484ed55e74225bf839c263"
+      },
+      {
+        "id": "155d34023ad280f7e9f605e6ee4bafdf6811825f",
+        "short_id": "155d3402",
+        "created_at": "2025-05-15T06:38:50.000+00:00",
+        "parent_ids": [
+          "c2951cc335662f5401b8e1eca886a95179cbdbf5",
+          "5937e8c0071ede034ca4920f23cb63110de484dd"
+        ],
+        "title": "Merge branch 'kivicare/clinic' into 'kivicare_develop'",
+        "message": "Merge branch 'kivicare/clinic' into 'kivicare_develop'\n\ncommon ag grid component\n\nSee merge request ashokj/kivicare-admin!3",
+        "author_name": "ashok jat",
+        "author_email": "ashok.jat@hashstudioz.com",
+        "authored_date": "2025-05-15T06:38:50.000+00:00",
+        "committer_name": "ashok jat",
+        "committer_email": "ashok.jat@hashstudioz.com",
+        "committed_date": "2025-05-15T06:38:50.000+00:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/155d34023ad280f7e9f605e6ee4bafdf6811825f"
+      },
+      {
+        "id": "fe549a451d904adb8ad3dd3b8192b170d1a93ce6",
+        "short_id": "fe549a45",
+        "created_at": "2025-05-15T17:40:26.000+05:30",
+        "parent_ids": [
+          "c2951cc335662f5401b8e1eca886a95179cbdbf5"
+        ],
+        "title": "auth gaurd implementation",
+        "message": "auth gaurd implementation\n",
+        "author_name": "ashok-jat",
+        "author_email": "ashok.jat@hashstudioz.com",
+        "authored_date": "2025-05-15T17:40:26.000+05:30",
+        "committer_name": "ashok-jat",
+        "committer_email": "ashok.jat@hashstudioz.com",
+        "committed_date": "2025-05-15T17:40:26.000+05:30",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/fe549a451d904adb8ad3dd3b8192b170d1a93ce6"
+      },
+      {
+        "id": "37548fd6ab831ba1378c43fa1acd2580485a2c4c",
+        "short_id": "37548fd6",
+        "created_at": "2025-05-15T17:40:54.000+05:30",
+        "parent_ids": [
+          "fe549a451d904adb8ad3dd3b8192b170d1a93ce6",
+          "155d34023ad280f7e9f605e6ee4bafdf6811825f"
+        ],
+        "title": "Merge branch 'kivicare_develop' into kivicare/auth-gaurd",
+        "message": "Merge branch 'kivicare_develop' into kivicare/auth-gaurd\n",
+        "author_name": "ashok-jat",
+        "author_email": "ashok.jat@hashstudioz.com",
+        "authored_date": "2025-05-15T17:40:54.000+05:30",
+        "committer_name": "ashok-jat",
+        "committer_email": "ashok.jat@hashstudioz.com",
+        "committed_date": "2025-05-15T17:40:54.000+05:30",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/37548fd6ab831ba1378c43fa1acd2580485a2c4c"
+      },
+      {
+        "id": "e56157c92fc4f52eb1740762b27f139925710522",
+        "short_id": "e56157c9",
+        "created_at": "2025-05-15T17:44:45.000+05:30",
+        "parent_ids": [
+          "a2380fd2affbdfacba484ed55e74225bf839c263",
+          "c2951cc335662f5401b8e1eca886a95179cbdbf5"
+        ],
+        "title": "create, edit, view and delete doctor",
+        "message": "create, edit, view and delete doctor\n",
+        "author_name": "dheeraj",
+        "author_email": "dheeraj.pandey@hashstudioz.com",
+        "authored_date": "2025-05-15T17:44:45.000+05:30",
+        "committer_name": "dheeraj",
+        "committer_email": "dheeraj.pandey@hashstudioz.com",
+        "committed_date": "2025-05-15T17:44:45.000+05:30",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/e56157c92fc4f52eb1740762b27f139925710522"
+      },
+      {
+        "id": "d08fd5448f07b2ef36b651bc0e4e6aec71748878",
+        "short_id": "d08fd544",
+        "created_at": "2025-05-15T12:42:55.000+00:00",
+        "parent_ids": [
+          "e56157c92fc4f52eb1740762b27f139925710522",
+          "155d34023ad280f7e9f605e6ee4bafdf6811825f"
+        ],
+        "title": "Merge branch 'kivicare_develop' into 'admin/doctor/dp'",
+        "message": "Merge branch 'kivicare_develop' into 'admin/doctor/dp'\n\n# Conflicts:\n#   src/app/views/clinics/clinic-list/clinic-list.component.html\n#   src/app/views/clinics/clinic-list/clinic-list.component.ts",
+        "author_name": "Dheeraj Pandey",
+        "author_email": "dheeraj.pandey@hashstudioz.com",
+        "authored_date": "2025-05-15T12:42:55.000+00:00",
+        "committer_name": "Dheeraj Pandey",
+        "committer_email": "dheeraj.pandey@hashstudioz.com",
+        "committed_date": "2025-05-15T12:42:55.000+00:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/d08fd5448f07b2ef36b651bc0e4e6aec71748878"
+      },
+      {
+        "id": "bf42d210a621d83f159ca7ab13dea4281e0fa98d",
+        "short_id": "bf42d210",
+        "created_at": "2025-05-15T12:44:00.000+00:00",
+        "parent_ids": [
+          "155d34023ad280f7e9f605e6ee4bafdf6811825f",
+          "d08fd5448f07b2ef36b651bc0e4e6aec71748878"
+        ],
+        "title": "Merge branch 'admin/doctor/dp' into 'kivicare_develop'",
+        "message": "Merge branch 'admin/doctor/dp' into 'kivicare_develop'\n\nAdmin/doctor/dp\n\nSee merge request ashokj/kivicare-admin!4",
+        "author_name": "ashok jat",
+        "author_email": "ashok.jat@hashstudioz.com",
+        "authored_date": "2025-05-15T12:44:00.000+00:00",
+        "committer_name": "ashok jat",
+        "committer_email": "ashok.jat@hashstudioz.com",
+        "committed_date": "2025-05-15T12:44:00.000+00:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/bf42d210a621d83f159ca7ab13dea4281e0fa98d"
+      },
+      {
+        "id": "d164872dd6cff1309b88f198548a47b775541972",
+        "short_id": "d164872d",
+        "created_at": "2025-05-15T18:15:31.000+05:30",
+        "parent_ids": [
+          "37548fd6ab831ba1378c43fa1acd2580485a2c4c"
+        ],
+        "title": "refresh issue in auth gaurd and auth service",
+        "message": "refresh issue in auth gaurd and auth service\n",
+        "author_name": "ashok-jat",
+        "author_email": "ashok.jat@hashstudioz.com",
+        "authored_date": "2025-05-15T18:15:31.000+05:30",
+        "committer_name": "ashok-jat",
+        "committer_email": "ashok.jat@hashstudioz.com",
+        "committed_date": "2025-05-15T18:15:31.000+05:30",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/d164872dd6cff1309b88f198548a47b775541972"
+      },
+      {
+        "id": "8d8758318437ec3e3d167e4fbe659d7699b5fada",
+        "short_id": "8d875831",
+        "created_at": "2025-05-15T18:16:56.000+05:30",
+        "parent_ids": [
+          "d164872dd6cff1309b88f198548a47b775541972",
+          "bf42d210a621d83f159ca7ab13dea4281e0fa98d"
+        ],
+        "title": "Merge branch 'kivicare_develop' into kivicare/auth-gaurd",
+        "message": "Merge branch 'kivicare_develop' into kivicare/auth-gaurd\n",
+        "author_name": "ashok-jat",
+        "author_email": "ashok.jat@hashstudioz.com",
+        "authored_date": "2025-05-15T18:16:56.000+05:30",
+        "committer_name": "ashok-jat",
+        "committer_email": "ashok.jat@hashstudioz.com",
+        "committed_date": "2025-05-15T18:16:56.000+05:30",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/8d8758318437ec3e3d167e4fbe659d7699b5fada"
+      },
+      {
+        "id": "81326bbece59ee4ea508c8876c1ae61c3dfca8b4",
+        "short_id": "81326bbe",
+        "created_at": "2025-05-15T18:22:39.000+05:30",
+        "parent_ids": [
+          "155d34023ad280f7e9f605e6ee4bafdf6811825f"
+        ],
+        "title": "Receptionist work",
+        "message": "Receptionist work\n",
+        "author_name": "Kunwar Abhay Singh",
+        "author_email": "78408918+abhay0908@users.noreply.github.com",
+        "authored_date": "2025-05-15T18:22:39.000+05:30",
+        "committer_name": "Kunwar Abhay Singh",
+        "committer_email": "78408918+abhay0908@users.noreply.github.com",
+        "committed_date": "2025-05-15T18:22:39.000+05:30",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/81326bbece59ee4ea508c8876c1ae61c3dfca8b4"
+      },
+      {
+        "id": "2318f981192c0228c98e387d2dc465f8ef5ffecc",
+        "short_id": "2318f981",
+        "created_at": "2025-05-15T12:54:33.000+00:00",
+        "parent_ids": [
+          "bf42d210a621d83f159ca7ab13dea4281e0fa98d",
+          "81326bbece59ee4ea508c8876c1ae61c3dfca8b4"
+        ],
+        "title": "Merge branch 'kivicare/abhay' into 'kivicare_develop'",
+        "message": "Merge branch 'kivicare/abhay' into 'kivicare_develop'\n\nReceptionist work\n\nSee merge request ashokj/kivicare-admin!5",
+        "author_name": "ashok jat",
+        "author_email": "ashok.jat@hashstudioz.com",
+        "authored_date": "2025-05-15T12:54:33.000+00:00",
+        "committer_name": "ashok jat",
+        "committer_email": "ashok.jat@hashstudioz.com",
+        "committed_date": "2025-05-15T12:54:33.000+00:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/2318f981192c0228c98e387d2dc465f8ef5ffecc"
+      },
+      {
+        "id": "9c84309d5869f81cbd4a3e1396fefce30f7d589d",
+        "short_id": "9c84309d",
+        "created_at": "2025-05-15T12:57:32.000+00:00",
+        "parent_ids": [
+          "2318f981192c0228c98e387d2dc465f8ef5ffecc",
+          "8d8758318437ec3e3d167e4fbe659d7699b5fada"
+        ],
+        "title": "Merge branch 'kivicare/auth-gaurd' into 'kivicare_develop'",
+        "message": "Merge branch 'kivicare/auth-gaurd' into 'kivicare_develop'\n\nKivicare/auth gaurd\n\nSee merge request ashokj/kivicare-admin!6",
+        "author_name": "ashok jat",
+        "author_email": "ashok.jat@hashstudioz.com",
+        "authored_date": "2025-05-15T12:57:32.000+00:00",
+        "committer_name": "ashok jat",
+        "committer_email": "ashok.jat@hashstudioz.com",
+        "committed_date": "2025-05-15T12:57:32.000+00:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/9c84309d5869f81cbd4a3e1396fefce30f7d589d"
+      },
+      {
+        "id": "da77a806c35b7051102330e5b68ee3222eb4fee8",
+        "short_id": "da77a806",
+        "created_at": "2025-05-16T09:11:15.000+05:30",
+        "parent_ids": [
+          "52f66d2f7944eecabfa32ba4065498eff6e3a6a0",
+          "9c84309d5869f81cbd4a3e1396fefce30f7d589d"
+        ],
+        "title": "Merge branch 'kivicare_develop' into kivicare/clinic",
+        "message": "Merge branch 'kivicare_develop' into kivicare/clinic\n",
+        "author_name": "ashok-jat",
+        "author_email": "ashok.jat@hashstudioz.com",
+        "authored_date": "2025-05-16T09:11:15.000+05:30",
+        "committer_name": "ashok-jat",
+        "committer_email": "ashok.jat@hashstudioz.com",
+        "committed_date": "2025-05-16T09:11:15.000+05:30",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/da77a806c35b7051102330e5b68ee3222eb4fee8"
+      }
+    ],
+    "diffs": [
+      {
+        "diff": "@@ -5,27 +5,43 @@ import { Error500Component } from './views/auth/error500/error500.component'\n import { MaintenanceComponent } from './views/auth/maintenance/maintenance.component'\n import { inject } from '@angular/core'\n import { AuthenticationService } from './core/service/auth.service'\n+import { DashboardComponent } from './views/dashboard/dashboard.component'\n+import { AuthGuard } from './core/auth/auth.guard'\n+import { AppointmentListComponent } from './views/appointments/appointment-list/appointment-list.component'\n+import { ClinicListComponent } from './views/clinics/clinic-list/clinic-list.component'\n \n export const routes: Routes = [\n   {\n     path: '',\n-    redirectTo: 'dashboard',\n+    redirectTo: '/auth/log-in',\n     pathMatch: 'full',\n   },\n   {\n     path: '',\n     component: LayoutComponent,\n-    canActivate: [\n-      () => {\n-        const currentUser = inject(AuthenticationService).session\n-        const router: Router = inject(Router)\n-        if (currentUser) return true\n-        const urlTree: UrlTree = router.parseUrl('/auth/log-in')\n-        return new RedirectCommand(urlTree, { skipLocationChange: true })\n+    canActivate: [AuthGuard],\n+    data: { roles: ['admin', 'doctor', 'receptionist'] }, // Base access\n+    children: [\n+      {\n+        path: 'dashboard',\n+        component: DashboardComponent\n       },\n-    ],\n-    loadChildren: () =>\n-      import('./views/views.route').then((mod) => mod.VIEW_ROUTES),\n+      {\n+        path: 'appointments',\n+        component: AppointmentListComponent,\n+        data: { roles: ['admin', 'doctor', 'receptionist'] }\n+      },\n+      {\n+        path: 'clinics',\n+        component: ClinicListComponent,\n+        data: { roles: ['admin'] } // Only admin\n+      },\n+      {\n+        path: 'doctors',\n+        loadChildren: () => import('./views/doctors/doctors.route').then(m => m.DOCTOR_ROUTES),\n+        data: { roles: ['admin', 'doctor'] } // Admin and doctors\n+      }\n+    ]\n   },\n   {\n     path: 'auth',\n",
+        "new_path": "src/app/app.routes.ts",
+        "old_path": "src/app/app.routes.ts",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -11,30 +11,35 @@ export const MENU_ITEMS: MenuItem[] = [\n     icon: 'iconoir-home-simple',\n     label: 'Dashboard',\n     url: '/dashboard',\n+    roles: ['admin', 'doctor', 'receptionist']\n   },\n   {\n     key: 'appointments',\n     icon: 'iconoir-view-grid',\n     label: 'Appointment List',\n     url: '/appointments',\n+    roles: ['admin', 'doctor','receptionist']\n   },\n   {\n     key: 'doctors',\n     icon: 'iconoir-home-simple',\n     label: 'Doctors',\n     collapsed: false,\n+    \n     subMenu: [\n       {\n         key: 'doctor-analytics',\n         label: 'Doctors',\n         url: '/doctors/doctor-list',\n         parentKey: 'doctors',\n+        roles: ['admin', 'doctor'] \n       },\n       {\n         key: 'doctor-ecommerce',\n         label: 'Doctor Session',\n         url: '/doctors/doctor-session',\n         parentKey: 'doctors',\n+        roles: ['admin', 'doctor'] \n       },\n     ],\n   },\n@@ -48,6 +53,7 @@ export const MENU_ITEMS: MenuItem[] = [\n     icon: 'iconoir-view-grid',\n     label: 'Clinics',\n     url: '/clinics',\n+    roles: ['admin']\n   },\n  \n ]\n",
+        "new_path": "src/app/common/menu-items.ts",
+        "old_path": "src/app/common/menu-items.ts",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -0,0 +1,39 @@\n+// role.guard.ts\n+import { Injectable } from '@angular/core';\n+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';\n+import { AuthenticationService } from '../service/auth.service';\n+\n+@Injectable({\n+  providedIn: 'root'\n+})\n+export class AuthGuard implements CanActivate {\n+  constructor(private auth: AuthenticationService, private router: Router) {}\n+\n+  canActivate(\n+    next: ActivatedRouteSnapshot,\n+    state: RouterStateSnapshot): boolean {\n+\n+        const token = this.auth.getAuthenticationToken();\n+  \n+  if (!token) {\n+    this.router.navigate(['/auth/log-in']);\n+    return false;\n+  }\n+\n+  // 2. Ensure roles are loaded\n+  if (!this.auth.user?.roles?.length) {\n+    this.auth.loadUserFromStorage();\n+  }\n+\n+  // 3. Then check roles (original logic)\n+  const requiredRoles = next.data['roles'] || [];\n+  if (this.auth.isAdmin()) return true;\n+  \n+  if (!requiredRoles.some((role:any) => this.auth.hasRole(role))) {\n+    this.router.navigate(['/not-found']); // Better UX than redirecting to login\n+    return false;\n+  }\n+\n+  return true;\n+  }\n+}\n\\ No newline at end of file\n",
+        "new_path": "src/app/core/auth/auth.guard.ts",
+        "old_path": "src/app/core/auth/auth.guard.ts",
+        "a_mode": "0",
+        "b_mode": "100644",
+        "new_file": true,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -24,6 +24,8 @@ export type User = {\n   avatar?: string\n   location?: string\n   title?: string\n+  roles?: string[];  // Add this line\n+  user_type?: string; // Add this line\n }\n \n type MyRequestBody = {\n",
+        "new_path": "src/app/core/helpers/fake-backend.ts",
+        "old_path": "src/app/core/helpers/fake-backend.ts",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -25,4 +25,5 @@ export interface MenuItem {\n     variant: string\n   }\n   subMenu?: any\n+  roles?:any\n }\n",
+        "new_path": "src/app/core/models/menu.model.ts",
+        "old_path": "src/app/core/models/menu.model.ts",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -19,13 +19,13 @@ export class AuthenticationService {\n   constructor(private http: HttpClient) {}\n \n   login(username: string, password: string) {\n-    return this.http.post<User>(`${this.apiUrl}/auth/login`, { username, password }).pipe(\n+    return this.http.post<any>(`${this.apiUrl}/auth/login`, { username, password }).pipe(\n       map((user) => {\n         // login successful if there's a jwt token in the response\n         if (user && user.access_token) {\n           this.user = user\n           // store user details and jwt in session\n-          this.storeAuthenticationToken(user.access_token, this.rememberMe)\n+          this.storeAuthenticationToken(user.access_token, this.rememberMe);\n         }\n         return user\n       })\n@@ -69,4 +69,46 @@ export class AuthenticationService {\n     sessionStorage.removeItem(this.authenticationKey);\n     localStorage.removeItem(this.authenticationKey);\n   }\n+\n+   getCurrentUserRoles(): string[] {\n+    return this.user?.roles || [];\n+  }\n+\n+  hasRole(role: string): boolean {\n+    return this.getCurrentUserRoles().includes(role);\n+  }\n+\n+  isAdmin(): boolean {\n+    return this.hasRole('admin');\n+  }\n+\n+  isDoctor(): boolean {\n+    return this.hasRole('doctor');\n+  }\n+\n+  isReceptionist(): boolean {\n+    return this.hasRole('receptionist');\n+  }\n+\n+   // Add this method\n+  private decodeToken(token: string): any {\n+    try {\n+      return JSON.parse(atob(token.split('.')[1]));\n+    } catch (e) {\n+      return null;\n+    }\n+  }\n+\n+  // Call this in constructor or init\n+  loadUserFromStorage(): void {\n+    const token = this.getAuthenticationToken();\n+    if (token) {\n+      const decoded = this.decodeToken(token);\n+      this.user = {\n+        ...decoded,\n+        access_token: token,\n+        roles: decoded?.roles || []\n+      };\n+    }\n+  }\n }\n",
+        "new_path": "src/app/core/service/auth.service.ts",
+        "old_path": "src/app/core/service/auth.service.ts",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -6,7 +6,7 @@\n     <ngx-simplebar class=\"startbar-collapse\" id=\"startbarCollapse\">\n       <div class=\"d-flex align-items-start flex-column w-100\">\n         <ul class=\"navbar-nav pt-2 mb-auto w-100\">\n-          @for (item of menuItems; track $index; let first = $first) {\n+          @for (item of filteredMenuItems; track $index; let first = $first) {\n             @if (item.isTitle) {\n               <li\n                 class=\"\"\n",
+        "new_path": "src/app/layouts/sidebar/sidebar.component.html",
+        "old_path": "src/app/layouts/sidebar/sidebar.component.html",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common'\n import { MenuItem } from '@/app/core/models/menu.model'\n import { MENU_ITEMS } from '@/app/common/menu-items'\n import { basePath } from '@/app/common/constants'\n+import { AuthenticationService } from '@/app/core/service/auth.service'\n \n @Component({\n   selector: 'app-sidebar',\n@@ -32,6 +33,9 @@ export class SidebarComponent {\n     '/'\n   )\n \n+  filteredMenuItems: MenuItem[] = [];\n+  private authService = inject(AuthenticationService);\n+\n   constructor() {\n     this.router.events.forEach((event) => {\n       if (event instanceof NavigationEnd) {\n@@ -45,6 +49,15 @@ export class SidebarComponent {\n         }, 200)\n       }\n     })\n+\n+    this.filterMenuItems();\n+  }\n+\n+    private filterMenuItems(): void {\n+    this.filteredMenuItems = MENU_ITEMS.filter(menu => {\n+      if (!menu.roles) return true;\n+      return menu.roles.some((role:any) => this.authService.hasRole(role));\n+    });\n   }\n \n   ngOnInit() {\n@@ -128,4 +141,12 @@ export class SidebarComponent {\n   hasSubmenu(menu: MenuItem): boolean {\n     return menu.subMenu ? true : false\n   }\n+\n+  filterMenuItemsByRole(): MenuItem[] {\n+  const auth = inject(AuthenticationService);\n+  return MENU_ITEMS.filter(menu => {\n+    if (!menu.roles) return true;\n+    return menu.roles.some((role:any) => auth.hasRole(role));\n+  });\n+}\n }\n",
+        "new_path": "src/app/layouts/sidebar/sidebar.component.ts",
+        "old_path": "src/app/layouts/sidebar/sidebar.component.ts",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -1,9 +1,2 @@\n-\n-<div class=\"row\">\n-    <div>\n-       <span class=\"p-1 cursor-pointer\"> <i class='fas fa-eye' (click)=\"view()\"></i></span>\n-       <span class=\"p-1 cursor-pointer\"> <i class='far fa-edit' (click)=\"edit()\"></i></span>\n-       <span class=\"p-1 cursor-pointer\"> <i class='far fa-trash-alt' (click)=\"delete()\"></i></span>\n-    </div>\n-\n-</div>\n+<button mat-raised-button color=\"primary\" (click)=\"edit()\">Edit</button>\n+    <button mat-raised-button color=\"warn\" (click)=\"delete()\">Delete</button>\n\\ No newline at end of file\n",
+        "new_path": "src/app/shared/components/action-cell-renderer/action-cell-renderer.component.html",
+        "old_path": "src/app/shared/components/action-cell-renderer/action-cell-renderer.component.html",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -21,10 +21,6 @@ params: any;\n     return true;\n   }\n \n-  view() {\n-    this.params.context.componentParent.view(this.params.data.id);\n-  }\n-\n   edit() {\n     this.params.context.componentParent.edit(this.params.data.id);\n   }\n",
+        "new_path": "src/app/shared/components/action-cell-renderer/action-cell-renderer.component.ts",
+        "old_path": "src/app/shared/components/action-cell-renderer/action-cell-renderer.component.ts",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -29,4 +29,16 @@ export class CustomService {\n       .get<any>(`${this.apiUrl}/location/cities/${id}`, { observe: 'response' })\n       .pipe(map((res) => res.body));\n   }\n+\n+  getClinicsList(): Observable<any> {\n+    return this.http\n+      .get<any>(`${this.apiUrl}/admin/clinics`, { observe: 'response' })\n+      .pipe(map((res) => res.body));\n+  }\n+\n+  getClinicById(id: any): Observable<any> {\n+    return this.http\n+      .get<any>(`${this.apiUrl}/admin/clinics/${id}`, { observe: 'response' })\n+      .pipe(map((res) => res.body));\n+  }\n }\n",
+        "new_path": "src/app/shared/service/custom.service.ts",
+        "old_path": "src/app/shared/service/custom.service.ts",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -152,8 +152,7 @@\n             <div class=\"form-section col-md-4\">\n               <mat-form-field appearance=\"outline\">\n                 <mat-label>State *</mat-label>\n-                <mat-select formControlName=\"state\" (selectionChange)=\"onStateChange($event)\"\n-                  [disabled]=\"!stateArray.length\">\n+                <mat-select formControlName=\"state\" (selectionChange)=\"onStateChange($event)\" [disabled]=\"!stateArray.length\">\n                   @for(state of stateArray; track state){\n                   <mat-option [value]=\"state.id\">\n                     {{ state.name }}\n@@ -236,10 +235,7 @@\n         <div class=\"row mb-3\">\n           <div class=\"col text-end\">\n             <button class=\"btn btn-danger\">\n-              <div style=\"display: flex; align-items: center;gap: 5px;\">\n-                <i class=\"material-icons\" style=\"font-size:18px;color:#FFF\">add</i>\n-                <span>Appointment</span>\n-              </div>\n+              <i class=\"bi bi-plus\"></i> Appointment\n             </button>\n           </div>\n         </div>\n",
+        "new_path": "src/app/views/clinics/clinic-list/clinic-list.component.html",
+        "old_path": "src/app/views/clinics/clinic-list/clinic-list.component.html",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -169,6 +169,12 @@ export class ClinicListComponent {\n     });\n   }\n \n+\n+\n+  onSelectionChange() {\n+    console.log(\"???????\")\n+  }\n+\n   // Format date for display\n   private formatDate(dateString: string): string {\n     if (!dateString) return '';\n@@ -248,6 +254,8 @@ export class ClinicListComponent {\n \n \n   onSubmit(): void {\n+    console.log('Form this.clinicForm:', this.clinicForm.value);\n+\n     if (this.clinicForm.valid) {\n       // Here you would typically call your API service\n       // Append image file if exists\n@@ -284,43 +292,38 @@ export class ClinicListComponent {\n   edit(id: string | null) {\n     this.clinicViewFlag = false;\n     this.clinicService.getClinicData(id).subscribe((clinic: any) => {\n-      this.currentClinicId = id;\n-      // Load states and cities together\n-      forkJoin({\n-        states: this.customService.getStateList(clinic.country),\n-        cities: this.customService.getCityList(clinic.state),\n-      }).subscribe(({ states, cities }) => {\n-        this.stateArray = states;\n-        this.cityArray = cities;\n-        this.assignValues(clinic)\n-        this.drawer.open();\n+      console.log(\"clinic data\", clinic);\n+\n+      this.clinicForm.patchValue({\n+        name: clinic.name,\n+        description: clinic.description,\n+        email: clinic.email,\n+        contact_number: clinic.contact_number,\n+        speciality: clinic.speciality,\n+        time_slot: clinic.time_slot,\n+        status: clinic.status,\n+        address: clinic.address,\n+        country: clinic.country,\n+        state: clinic.state,\n+        city: clinic.city,\n+        pincode: clinic.pincode,\n+        latitude: clinic.latitude,\n+        longitude: clinic.longitude\n+        // Note: For the image, you might need special handling\n       });\n-    });\n-  }\n \n-  assignValues(clinic: any) {\n-    // Patch fields\n-    this.clinicForm.patchValue({\n-      name: clinic.name,\n-      description: clinic.description,\n-      email: clinic.email,\n-      contact_number: clinic.contact_number,\n-      speciality: clinic.speciality,\n-      time_slot: clinic.time_slot,\n-      status: clinic.status,\n-      address: clinic.address,\n-      pincode: clinic.pincode,\n-      latitude: clinic.latitude,\n-      longitude: clinic.longitude,\n-      country: clinic.country,\n-      state: clinic.state,\n-      city: clinic.city\n+      // Store the clinic ID for update operation\n+      this.currentClinicId = id;\n+\n+      // Open the drawer after form is prefilled\n+      this.drawer.open();\n     });\n   }\n \n-\n   delete(id: string | null) {\n+    console.log(`Delete doctor with ID: ${id}`);\n     const sub = \"delete\"\n+\n     this.clinicService.deleteClinic(id).subscribe((clinics: any) => {\n       this.alertService.executeExample(sub);\n       this.getClinicData();\n",
+        "new_path": "src/app/views/clinics/clinic-list/clinic-list.component.ts",
+        "old_path": "src/app/views/clinics/clinic-list/clinic-list.component.ts",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -1,114 +0,0 @@\n-.clinic-detail-dialog-container {\n-  padding: 24px;\n-  background-color: #f9fafb;\n-  border-radius: 10px;\n-  font-family: 'Segoe UI', sans-serif;\n-}\n-\n-.clinic-detail-header {\n-  display: flex;\n-  justify-content: space-between;\n-  align-items: center;\n-  margin-bottom: 24px;\n-  border-bottom: 1px solid #c8c5c53d;\n-}\n-\n-.clinic-detail-close-button {\n-  background: none;\n-  border: none;\n-  font-size: 20px;\n-  cursor: pointer;\n-}\n-\n-.clinic-detail-section {\n-  margin-bottom: 32px;\n-}\n-\n-.clinic-detail-section-title {\n-  font-size: 18px;\n-  font-weight: 600;\n-  margin-bottom: 16px;\n-  color: #333;\n-}\n-\n-.clinic-detail-about {\n-  display: flex;\n-  gap: 20px;\n-  background: #ffffff;\n-  padding: 20px;\n-  border-radius: 8px;\n-}\n-\n-.clinic-detail-image {\n-  width: 100px;\n-  height: 100px;\n-  border-radius: 50%;\n-  object-fit: cover;\n-  border: 1px solid #ccc;\n-}\n-\n-.clinic-detail-content {\n-  flex: 1;\n-}\n-\n-.clinic-detail-name {\n-  font-size: 20px;\n-  font-weight: 600;\n-  margin-bottom: 10px;\n-  color: #222;\n-}\n-\n-.clinic-detail-contact {\n-  display: flex;\n-  flex-direction: column;\n-  margin-bottom: 10px;\n-}\n-\n-.clinic-detail-contact-item {\n-  margin-bottom: 4px;\n-  font-size: 14px;\n-}\n-\n-.clinic-detail-email, .clinic-detail-phone {\n-  text-decoration: none;\n-  color: #007bff;\n-}\n-\n-.clinic-detail-address {\n-  display: flex;\n-  flex-wrap: wrap;\n-  gap: 16px;\n-  font-size: 14px;\n-  margin-bottom: 10px;\n-}\n-\n-.clinic-detail-description {\n-  font-size: 14px;\n-  margin-bottom: 10px;\n-}\n-\n-.clinic-detail-meta {\n-  font-size: 14px;\n-  display: flex;\n-  gap: 40px;\n-}\n-\n-.clinic-detail-sessions {\n-  background: #ffffff;\n-  border-radius: 8px;\n-  padding: 16px;\n-  display: flex;\n-  flex-direction: column;\n-//   gap: 10px;\n-}\n-\n-.clinic-detail-session-item {\n-  display: flex;\n-  justify-content: space-between;\n-  font-size: 14px;\n-  padding: 20px 0;\n-}\n-\n-.clinic-detail-session-closed {\n-  color: #d9534f;\n-}\n",
+        "new_path": "src/app/views/clinics/clinic-view/clinic-view.component.scss",
+        "old_path": "src/app/views/clinics/clinic-view/clinic-view.component.scss",
+        "a_mode": "100644",
+        "b_mode": "0",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": true,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -41,10 +41,4 @@ export class ClinicService {\n       .delete<any>(`${this.apiUrl}/admin/clinics/${id}`, { observe: 'response' })\n       .pipe(map((res) => res.body));\n   }\n-\n-   deleteAllClinic(): Observable<any> {\n-    return this.http\n-      .delete<any>(`${this.apiUrl}/admin/clinics`, { observe: 'response' })\n-      .pipe(map((res) => res.body));\n-  }\n }\n",
+        "new_path": "src/app/views/clinics/service/clinic.service.ts",
+        "old_path": "src/app/views/clinics/service/clinic.service.ts",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -1,45 +1,36 @@\n <div class=\"clinic-detail-dialog-container\">\n     <!-- Header -->\n     <div class=\"clinic-detail-header\">\n-        <h3>Clinic Detail</h3>\n+        <h3>Doctor Detail</h3>\n         <button class=\"clinic-detail-close-button\" (click)=\"closeDialog()\">\u2715</button>\n     </div>\n \n-    <!-- About Clinic Section -->\n+    <!-- About Doctor Section -->\n     <div class=\"clinic-detail-section\">\n-        <h2 class=\"clinic-detail-section-title\">About Clinic</h2>\n+        <h2 class=\"clinic-detail-section-title\">About Doctor</h2>\n         <div class=\"clinic-detail-about\">\n-            <img src=\"assets/clinic-image.jpg\" alt=\"Clinic Image\" class=\"clinic-detail-image\" />\n+            <img src=\"assets/doctor-image.jpg\" alt=\"Doctor Image\" class=\"clinic-detail-image\" />\n \n             <div class=\"clinic-detail-content\">\n-                <h3 class=\"clinic-detail-name\">{{clinicData?.name}}</h3>\n+                <h3 class=\"clinic-detail-name\">{{doctorData?.first_name}} {{doctorData?.last_name}}</h3>\n                 <div class=\"clinic-detail-contact\">\n                     <div class=\"clinic-detail-contact-item\">\n-                        \ud83d\udce7 <a href=\"\" class=\"clinic-detail-email\">{{clinicData?.email}}</a>\n+                        \ud83d\udce7 <a href=\"\" class=\"clinic-detail-email\">{{doctorData?.email}}</a>\n                     </div>\n                     <div class=\"clinic-detail-contact-item\">\n-                        \ud83d\udcde <a href=\"\" class=\"clinic-detail-phone\">{{clinicData?.contact_number}}</a>\n+                        \ud83d\udcde <a href=\"\" class=\"clinic-detail-phone\">{{doctorData?.mobile}}</a>\n                     </div>\n-                    <div class=\"clinic-detail-contact-item\">\n-                        \ud83d\udccd {{clinicData?.address}}\n-                    </div>\n-                </div>\n-\n-                <div class=\"clinic-detail-address\">\n-                    <div><strong>Postal Code:</strong> {{clinicData?.pincode}}</div>\n-                    <div><strong>City:</strong> {{getCityName(clinicData?.city)}}</div>\n-                    <div><strong>State:</strong> {{getStateName(clinicData?.state)}}</div>\n-                    <div><strong>Country:</strong> {{getCountryName(clinicData?.country)}}</div>\n                 </div>\n \n                 <div class=\"clinic-detail-description\">\n                     <strong>Description:</strong>\n-                    {{clinicData?.description}}. \ud83c\udfe5\ud83e\uddd1\u200d\u2695\ufe0f\n+                    {{doctorData?.Description}}. \ud83e\ude7a\n                 </div>\n \n                 <div class=\"clinic-detail-meta\">\n-                    <span><strong>Speciality:</strong> Specialist Clinics</span>\n-                    <span><strong>Time Slot:</strong> {{clinicData?.time_slot}} Min.</span>\n+                    <span><strong>Total Appointments:</strong> {{doctorData?.total_appointments}}</span>\n+                    <span><strong>Expertise In:</strong> {{doctorData?.expertise_in}}</span>\n+                    <span><strong>Available Session:</strong> {{doctorData?.available_session}}</span>\n                 </div>\n             </div>\n         </div>\n",
+        "new_path": "src/app/views/doctors/doctor-details/doctor-details.component.html",
+        "old_path": "src/app/views/clinics/clinic-view/clinic-view.component.html",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": true,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -0,0 +1,115 @@\n+.clinic-detail-dialog-container {\n+    padding: 24px;\n+    background-color: #f9fafb;\n+    border-radius: 10px;\n+    font-family: 'Segoe UI', sans-serif;\n+  }\n+  \n+  .clinic-detail-header {\n+    display: flex;\n+    justify-content: space-between;\n+    align-items: center;\n+    margin-bottom: 24px;\n+    border-bottom: 1px solid #c8c5c53d;\n+  }\n+  \n+  .clinic-detail-close-button {\n+    background: none;\n+    border: none;\n+    font-size: 20px;\n+    cursor: pointer;\n+  }\n+  \n+  .clinic-detail-section {\n+    margin-bottom: 32px;\n+  }\n+  \n+  .clinic-detail-section-title {\n+    font-size: 18px;\n+    font-weight: 600;\n+    margin-bottom: 16px;\n+    color: #333;\n+  }\n+  \n+  .clinic-detail-about {\n+    display: flex;\n+    gap: 20px;\n+    background: #ffffff;\n+    padding: 20px;\n+    border-radius: 8px;\n+  }\n+  \n+  .clinic-detail-image {\n+    width: 100px;\n+    height: 100px;\n+    border-radius: 50%;\n+    object-fit: cover;\n+    border: 1px solid #ccc;\n+  }\n+  \n+  .clinic-detail-content {\n+    flex: 1;\n+  }\n+  \n+  .clinic-detail-name {\n+    font-size: 20px;\n+    font-weight: 600;\n+    margin-bottom: 10px;\n+    color: #222;\n+  }\n+  \n+  .clinic-detail-contact {\n+    display: flex;\n+    flex-direction: column;\n+    margin-bottom: 10px;\n+  }\n+  \n+  .clinic-detail-contact-item {\n+    margin-bottom: 4px;\n+    font-size: 14px;\n+  }\n+  \n+  .clinic-detail-email, .clinic-detail-phone {\n+    text-decoration: none;\n+    color: #007bff;\n+  }\n+  \n+  .clinic-detail-address {\n+    display: flex;\n+    flex-wrap: wrap;\n+    gap: 16px;\n+    font-size: 14px;\n+    margin-bottom: 10px;\n+  }\n+  \n+  .clinic-detail-description {\n+    font-size: 14px;\n+    margin-bottom: 10px;\n+  }\n+  \n+  .clinic-detail-meta {\n+    font-size: 14px;\n+    display: flex;\n+    gap: 40px;\n+  }\n+  \n+  .clinic-detail-sessions {\n+    background: #ffffff;\n+    border-radius: 8px;\n+    padding: 16px;\n+    display: flex;\n+    flex-direction: column;\n+  //   gap: 10px;\n+  }\n+  \n+  .clinic-detail-session-item {\n+    display: flex;\n+    justify-content: space-between;\n+    font-size: 14px;\n+    padding: 20px 0;\n+  }\n+  \n+  .clinic-detail-session-closed {\n+    color: #d9534f;\n+  }\n+  \n\\ No newline at end of file\n",
+        "new_path": "src/app/views/doctors/doctor-details/doctor-details.component.scss",
+        "old_path": "src/app/views/doctors/doctor-details/doctor-details.component.scss",
+        "a_mode": "0",
+        "b_mode": "100644",
+        "new_file": true,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -1,18 +1,18 @@\n import { ComponentFixture, TestBed } from '@angular/core/testing';\n \n-import { ClinicViewComponent } from './clinic-view.component';\n+import { DoctorDetailsComponent } from './doctor-details.component';\n \n-describe('ClinicViewComponent', () => {\n-  let component: ClinicViewComponent;\n-  let fixture: ComponentFixture<ClinicViewComponent>;\n+describe('DoctorDetailsComponent', () => {\n+  let component: DoctorDetailsComponent;\n+  let fixture: ComponentFixture<DoctorDetailsComponent>;\n \n   beforeEach(async () => {\n     await TestBed.configureTestingModule({\n-      imports: [ClinicViewComponent]\n+      imports: [DoctorDetailsComponent]\n     })\n     .compileComponents();\n \n-    fixture = TestBed.createComponent(ClinicViewComponent);\n+    fixture = TestBed.createComponent(DoctorDetailsComponent);\n     component = fixture.componentInstance;\n     fixture.detectChanges();\n   });\n",
+        "new_path": "src/app/views/doctors/doctor-details/doctor-details.component.spec.ts",
+        "old_path": "src/app/views/clinics/clinic-view/clinic-view.component.spec.ts",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": true,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -1,41 +1,38 @@\n import { Component, EventEmitter, Input, Output } from '@angular/core';\n-import { MatIconModule } from '@angular/material/icon';\n-import { MatCardModule } from '@angular/material/card';\n-import { MatButtonModule } from '@angular/material/button';\n-import { ClinicService } from '../service/clinic.service';\n+import { DoctorService } from '../service/doctor.service';\n import { CustomService } from '@/app/shared/service/custom.service';\n import { forkJoin } from 'rxjs';\n+import { CommonModule } from '@angular/common';\n \n @Component({\n-  selector: 'app-clinic-view',\n+  selector: 'app-doctor-details',\n   standalone: true,\n-  imports: [MatIconModule, MatCardModule,\n-    MatButtonModule,],\n-  templateUrl: './clinic-view.component.html',\n-  styleUrl: './clinic-view.component.scss'\n+  imports: [CommonModule],\n+  templateUrl: './doctor-details.component.html',\n+  styleUrl: './doctor-details.component.scss'\n })\n-export class ClinicViewComponent {\n+export class DoctorDetailsComponent {\n \n-  private currentClinicId: string | null = null;\n+  private currentDoctorId: string | null = null;\n   @Output() close = new EventEmitter<void>();\n \n   @Input()\n-  set clinicId(value: string | null) {\n-    this.currentClinicId = value;\n+  set doctorId(value: string | null) {\n+    this.currentDoctorId = value;\n     if (value) {\n-      this.fetchClinicDetails(value); // Trigger API call when clinicId changes\n+      this.fetchDoctorDetails(value); // Trigger API call when clinicId changes\n     }\n   }\n \n-  get clinicId(): string | null {\n-    return this.currentClinicId;\n+  get doctorId(): string | null {\n+    return this.currentDoctorId;\n   }\n \n-  clinicData:any;\n+  doctorData:any;\n   countryArray: any[] = [];\n   stateArray: any[] = [];\n   cityArray: any[] = [];\n-  constructor(private clinicService: ClinicService, private customService: CustomService,) {\n+  constructor(private doctorService: DoctorService, private customService: CustomService,) {\n \n   }\n \n@@ -43,13 +40,13 @@ export class ClinicViewComponent {\n     this.getCountryData();\n   }\n \n-  fetchClinicDetails(id: string): void {\n-    this.clinicService.getClinicData(this.clinicId).subscribe((clinic: any) => {\n-      this.clinicData = clinic;\n+  fetchDoctorDetails(id: string): void {\n+    this.doctorService.getDoctorData(this.doctorId).subscribe((doctor: any) => {\n+      this.doctorData = doctor;\n       // Load states and cities together\n       forkJoin({\n-        states: this.customService.getStateList(clinic.country),\n-        cities: this.customService.getCityList(clinic.state),\n+        states: this.customService.getStateList(doctor.country),\n+        cities: this.customService.getCityList(doctor.state),\n       }).subscribe(({ states, cities }) => {\n         this.stateArray = states;\n         this.cityArray = cities;\n",
+        "new_path": "src/app/views/doctors/doctor-details/doctor-details.component.ts",
+        "old_path": "src/app/views/clinics/clinic-view/clinic-view.component.ts",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": true,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -1 +1,299 @@\n-<p>doctors works!</p>\n+<mat-drawer-container class=\"drawer-container\" [hasBackdrop]=\"hasBackdrop\">\n+    <!-- Right side drawer -->\n+    <mat-drawer #drawer [mode]=\"mode\" [position]=\"position\" class=\"right-drawer\">\n+      <div class=\"drawer-content\">\n+  \n+        @if(!doctorViewFlag){\n+          <div>\n+            <h3>Create Doctor</h3>\n+            <form [formGroup]=\"doctorForm\" (ngSubmit)=\"onSubmit()\" class=\"form-grid\">\n+              <!-- Image Upload Section -->\n+              <div class=\"row g-4\">\n+                <div class=\"form-section col-md-6\">\n+                  <div class=\"image-upload-container\">\n+                    <input type=\"file\" accept=\"image/*\" #fileInput (change)=\"onFileSelected($event)\" style=\"display: none;\">\n+                    <div class=\"image-preview-container\">\n+                      @if (imagePreview) {\n+                        <img [src]=\"imagePreview\" alt=\"Image preview\" class=\"image-preview\">\n+                      } @else {\n+                        <div class=\"browse-link\" (click)=\"fileInput.click()\">Browse File</div>\n+                      }\n+                    </div>\n+                    <div class=\"upload-buttons\">\n+                      @if (imagePreview) {\n+                        <button mat-raised-button color=\"warn\" type=\"button\" (click)=\"removeImage()\">\n+                          Remove\n+                        </button>\n+                      }\n+                    </div>\n+                  </div>\n+                </div>\n+                \n+                <div class=\"form-section col-md-6\">\n+                  <mat-form-field appearance=\"outline\">\n+                    <mat-label>User Name</mat-label>\n+                    <input matInput formControlName=\"username\" placeholder=\"User Name\">\n+                    @if (doctorForm.get('first_name')?.hasError('required') && doctorForm.get('first_name')?.touched) {\n+                      <mat-error>This field is required</mat-error>\n+                    }\n+                  </mat-form-field>\n+                  <mat-form-field appearance=\"outline\">\n+                    <mat-label>First Name</mat-label>\n+                    <input matInput formControlName=\"first_name\" placeholder=\"First Name\">\n+                    @if (doctorForm.get('first_name')?.hasError('required') && doctorForm.get('first_name')?.touched) {\n+                      <mat-error>This field is required</mat-error>\n+                    }\n+                  </mat-form-field>\n+                  <mat-form-field appearance=\"outline\">\n+                    <mat-label>Last Name</mat-label>\n+                    <input matInput formControlName=\"last_name\" placeholder=\"Last Name\">\n+                    @if (doctorForm.get('last_name')?.hasError('required') && doctorForm.get('last_name')?.touched) {\n+                      <mat-error>This field is required</mat-error>\n+                    }\n+                  </mat-form-field>\n+                  <mat-form-field appearance=\"outline\">\n+                    <mat-label>Email</mat-label>\n+                    <input matInput formControlName=\"email\" placeholder=\"Email\" type=\"email\">\n+                    @if (doctorForm.get('email')?.hasError('required') && doctorForm.get('email')?.touched) {\n+                      <mat-error>This field is required</mat-error>\n+                    }\n+                    @if (doctorForm.get('email')?.hasError('email') && doctorForm.get('email')?.touched) {\n+                      <mat-error>Invalid email format</mat-error>\n+                    }\n+                  </mat-form-field>\n+                </div>\n+              </div>\n+              <!-- Basic Information -->\n+              <div class=\"row g-4\">\n+                <div class=\"form-section col-md-6\">\n+                  <mat-form-field appearance=\"outline\">\n+                    <mat-label>Gender</mat-label>\n+                    <mat-select formControlName=\"gender\" placeholder=\"Select Gender\">\n+                      <mat-option value=\"male\">Male</mat-option>\n+                      <mat-option value=\"female\">Female</mat-option>\n+                      <mat-option value=\"intersex\">Intersex</mat-option>\n+                    </mat-select>\n+                  </mat-form-field>\n+                </div>\n+                <div class=\"form-section col-md-6\">\n+                  <mat-form-field appearance=\"outline\">\n+                    <mat-label>Mobile</mat-label>\n+                    <input matInput formControlName=\"mobile\" placeholder=\"Enter a phone number\" type=\"text\">\n+                    @if (doctorForm.get('mobile')?.hasError('required') && doctorForm.get('mobile')?.touched) {\n+                      <mat-error>This field is required</mat-error>\n+                    }\n+                    @if (doctorForm.get('mobile')?.hasError('pattern') && doctorForm.get('mobile')?.touched) {\n+                      <mat-error>Mobile number must be exactly 10 digits</mat-error>\n+                    }\n+                  </mat-form-field>\n+                </div>\n+              </div>\n+              <!-- Clinic Details -->\n+              <div class=\"row g-4\">\n+                <div class=\"form-section col-md-6\">\n+                  <mat-form-field appearance=\"outline\">\n+                    <mat-label>Password</mat-label>\n+                    <input matInput type=\"password\" formControlName=\"password\" placeholder=\"Password\">\n+                    @if (doctorForm.get('password')?.hasError('required') && doctorForm.get('password')?.touched) {\n+                      <mat-error>This field is required</mat-error>\n+                    }\n+                    @if (doctorForm.get('password')?.hasError('minlength') && doctorForm.get('password')?.touched) {\n+                      <mat-error>Password must be at least 6 characters</mat-error>\n+                    }\n+                  </mat-form-field>\n+                </div>\n+                <div class=\"form-section col-md-6\">\n+                  <mat-form-field appearance=\"outline\">\n+                    <mat-label>Confirm Password</mat-label>\n+                    <input matInput type=\"password\" formControlName=\"confirmPassword\" placeholder=\"Confirm Password\">\n+                    @if (doctorForm.get('confirmPassword')?.hasError('required') && doctorForm.get('confirmPassword')?.touched) {\n+                      <mat-error>This field is required</mat-error>\n+                    }\n+                    @if (doctorForm.hasError('mismatch') && doctorForm.get('confirmPassword')?.touched) {\n+                      <mat-error>Passwords do not match</mat-error>\n+                    }\n+                  </mat-form-field>\n+                </div>\n+              </div>\n+              <!-- Other Detail -->\n+              <h3>Other Detail</h3>\n+            \n+              <!-- Date of Birth, Clinic ID, Experience, Signature, Description -->\n+              <div class=\"row g-4\">\n+                <div class=\"form-section col-md-4\">\n+                  <mat-form-field appearance=\"outline\">\n+                    <mat-label>Clinic</mat-label>\n+                    <mat-select formControlName=\"clinic_id\" placeholder=\"Select Clinic\" (selectionChange)=\"onClinicChange($event)\">\n+                      @for (clinic of clinics; track clinic) {\n+                        <mat-option [value]=\"clinic.id\">{{ clinic.name }}</mat-option>\n+                      }\n+                    </mat-select>\n+                    @if (doctorForm.get('clinic_id')?.hasError('required') && doctorForm.get('clinic_id')?.touched) {\n+                      <mat-error>This field is required</mat-error>\n+                    }\n+                  </mat-form-field>\n+                </div>\n+                <div class=\"form-section col-md-4\">\n+                  <mat-form-field appearance=\"outline\">\n+                    <mat-label>Services</mat-label>\n+                    <mat-select formControlName=\"services_id\" placeholder=\"Select Service\" [disabled]=\"!services.length\" multiple>\n+                      @for (service of services; track service) {\n+                        <mat-option [value]=\"service.id\">{{ service.name }}</mat-option>\n+                      }\n+                    </mat-select>\n+                    @if (doctorForm.get('services_id')?.hasError('required') && doctorForm.get('services_id')?.touched) {\n+                      <mat-error>This field is required</mat-error>\n+                    }\n+                  </mat-form-field>\n+                </div>\n+                <div class=\"form-section col-md-4\">\n+                  <mat-form-field appearance=\"outline\">\n+                    <mat-label>Experience</mat-label>\n+                    <input matInput formControlName=\"experience\" placeholder=\"Experience\">\n+                  </mat-form-field>\n+                </div>\n+                <div class=\"form-section col-md-6\">\n+                  <mat-form-field appearance=\"outline\">\n+                    <mat-label>Signature</mat-label>\n+                    <input matInput formControlName=\"Signature\" placeholder=\"Signature\">\n+                  </mat-form-field>\n+                </div>\n+                <div class=\"form-section col-md-6\"> \n+                  <mat-form-field appearance=\"outline\">\n+                    <mat-label>Description</mat-label>\n+                    <textarea matInput formControlName=\"Description\" placeholder=\"Description\"></textarea>\n+                  </mat-form-field>\n+                </div>\n+              </div>\n+              \n+              <!-- Address Section -->\n+              <div class=\"form-section\">\n+                <mat-form-field appearance=\"outline\">\n+                  <mat-label>Address</mat-label>\n+                  <textarea matInput formControlName=\"address\" placeholder=\"Address\"></textarea>\n+                  @if (doctorForm.get('address')?.hasError('required') && doctorForm.get('address')?.touched) {\n+                    <mat-error>This field is required</mat-error>\n+                  }\n+                </mat-form-field>\n+              </div>\n+              <!-- Country/State/City -->\n+              <div class=\"row g-4\">\n+                <div class=\"form-section col-md-4\">\n+                  <mat-form-field appearance=\"outline\">\n+                    <mat-label>Country</mat-label>\n+                    <mat-select formControlName=\"country\" (selectionChange)=\"onCountryChange($event)\">\n+                      @for (country of countryArray; track country) {\n+                        <mat-option [value]=\"country.id\">{{ country.name }}</mat-option>\n+                      }\n+                    </mat-select>\n+                  </mat-form-field>\n+                </div>\n+                <div class=\"form-section col-md-4\">\n+                  <mat-form-field appearance=\"outline\">\n+                    <mat-label>State</mat-label>\n+                    <mat-select formControlName=\"state\" (selectionChange)=\"onStateChange($event)\" [disabled]=\"!stateArray.length\">\n+                      @for (state of stateArray; track state) {\n+                        <mat-option [value]=\"state.id\">{{ state.name }}</mat-option>\n+                      }\n+                    </mat-select>\n+                  </mat-form-field>\n+                </div>\n+                <div class=\"form-section col-md-4\">\n+                  <mat-form-field appearance=\"outline\">\n+                    <mat-label>City</mat-label>\n+                    <mat-select formControlName=\"city\" [disabled]=\"!cityArray.length\">\n+                      @for (city of cityArray; track city) {\n+                        <mat-option [value]=\"city.id\">{{ city.name }}</mat-option>\n+                      }\n+                    </mat-select>\n+                  </mat-form-field>\n+                </div>\n+              </div>\n+            \n+              <!-- Location Details -->\n+              <div class=\"row g-4\">\n+                <div class=\"form-section col-md-4\">\n+                  <mat-form-field appearance=\"outline\">\n+                    <mat-label>Postal Code</mat-label>\n+                    <input matInput formControlName=\"pincode\" placeholder=\"Postal Code\">\n+                  </mat-form-field>\n+                </div>\n+                <div class=\"form-section col-md-4\">\n+                  <mat-form-field appearance=\"outline\">\n+                    <mat-label>Latitude</mat-label>\n+                    <input matInput formControlName=\"latitude\" placeholder=\"Latitude\" type=\"number\">\n+                  </mat-form-field>\n+                </div>\n+                <div class=\"form-section col-md-4\">\n+                  <mat-form-field appearance=\"outline\">\n+                    <mat-label>Longitude</mat-label>\n+                    <input matInput formControlName=\"longitude\" placeholder=\"Longitude\" type=\"number\">\n+                  </mat-form-field>\n+                </div>\n+              </div>\n+              \n+              <!-- Form Actions -->\n+              <div class=\"form-actions\">\n+                <button mat-raised-button color=\"warn\" type=\"button\" (click)=\"onCancel()\">Cancel</button>\n+                <button mat-raised-button color=\"primary\" type=\"submit\" [disabled]=\"!doctorForm.valid\">Save</button>\n+              </div>\n+            </form>\n+          </div>\n+        }\n+        @if(doctorViewFlag){\n+          <div>\n+            <app-doctor-details (close)=\"onCancel()\" [doctorId]=\"currentDoctorId\"></app-doctor-details>\n+          </div>\n+        }\n+      </div>\n+    </mat-drawer>\n+  \n+    <mat-drawer-content>\n+      <!-- Your main content here -->\n+      <div class=\"main-content\">\n+        <div class=\"container mt-2 mb-2\">\n+          <div class=\"row mb-3\">\n+            <div class=\"col text-end\">\n+              <button class=\"btn btn-danger\">\n+                <i class=\"bi bi-plus\"></i> Appointment\n+              </button>\n+            </div>\n+          </div>\n+  \n+          <!-- Second Row: Buttons aligned left and right -->\n+          <div class=\"row align-items-center\">\n+            <!-- Left-aligned buttons -->\n+            <div class=\"col d-flex gap-2\">\n+             <div>\n+               <select class=\"form-select\" aria-label=\"Default select example\" [disabled]=\"\">\n+                <option selected>No Action</option>\n+                <option value=\"1\">Delete</option>\n+                <option value=\"2\">Status</option>\n+              </select>\n+             </div>\n+              <button class=\"btn btn-secondary\">Apply</button>\n+              <button class=\"btn btn-primary\" (click)=\"exportToExcel()\">\n+                <i class=\"bi bi-download\"></i> Export\n+              </button>\n+            </div>\n+  \n+            <div class=\"col\"></div>\n+  \n+            <div class=\"col d-flex justify-content-end gap-2\">\n+  \n+  \n+              <button class=\"btn btn-primary\" (click)=\"open()\">\n+                <i class=\"bi bi-plus-circle\"></i> New\n+              </button>\n+            </div>\n+          </div>\n+        </div>\n+        <ag-grid-angular style=\"width: 100%; height: 100%\" class=\"ag-theme-alpine\" [columnDefs]=\"colDefs\"\n+          [defaultColDef]=\"defaultColDef\" [domLayout]=\"'autoHeight'\" (gridReady)=\"onGridReady($event)\" [rowData]=\"rowData\"\n+          [pagination]=\"true\" [paginationPageSize]=\"paginationPageSize\" [gridOptions]=\"gridOptions\" onSelectionChanged=\"onSelectionChange()\"\n+          [paginationPageSizeSelector]=\"paginationPageSizeSelector\" [rowSelection]=\"rowSelection\" [theme]=\"myTheme\">\n+        </ag-grid-angular>\n+      </div>\n+    </mat-drawer-content>\n+  \n+  </mat-drawer-container>\n\\ No newline at end of file\n",
+        "new_path": "src/app/views/doctors/doctors/doctors.component.html",
+        "old_path": "src/app/views/doctors/doctors/doctors.component.html",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -0,0 +1,179 @@\n+\n+.drawer-container {\n+    width: 100%;\n+    height: 100vh;\n+    border: 1px solid #eee;\n+  }\n+  \n+  .right-drawer {\n+    width: 650px;\n+    padding: 20px;\n+    background: #f5f5f5;\n+  }\n+\n+  ::ng-deep .mat-drawer-inner-container {\n+    overflow-y: auto !important;\n+    overflow-x: hidden !important;\n+  }\n+  \n+  .drawer-content {\n+    display: flex;\n+    flex-direction: column;\n+    height: 100%;\n+  }\n+  \n+  .controls {\n+    padding: 20px;\n+    display: flex;\n+    gap: 16px;\n+    align-items: center;\n+    background: white;\n+    border-bottom: 1px solid #eee;\n+  }\n+  \n+  .main-content {\n+    padding: 20px;\n+  }\n+\n+  .form-container {\n+    max-width: 1200px;\n+    padding: 1rem;\n+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\n+    border-radius: 8px;\n+  }\n+  \n+  h3 {\n+    margin-bottom: 2rem;\n+    color: #3f51b5;\n+  }\n+  \n+  .form-grid {\n+    display: grid;\n+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n+    gap: 1.5rem;\n+  }\n+  \n+  .form-section {\n+    display: flex;\n+    flex-direction: column;\n+    gap: 1rem;\n+    margin-top: 20px;\n+  }\n+  \n+  .image-upload-container {\n+    display: flex;\n+    flex-direction: column;\n+    align-items: center;\n+    // padding: 2rem;\n+    // border: 2px dashed #ccc;\n+    border-radius: 8px;\n+    margin-bottom: 1rem;\n+    transition: all 0.3s;\n+  \n+    .upload-icon {\n+      font-size: 3rem;\n+      width: 3rem;\n+      height: 3rem;\n+      color: #3f51b5;\n+    }\n+  \n+    h3 {\n+      margin: 0.5rem 0;\n+      color: #333;\n+    }\n+  \n+    p {\n+      margin: 0;\n+      color: #666;\n+      font-size: 0.9rem;\n+    }\n+  \n+    &:hover, &.dragover {\n+      border-color: #3f51b5;\n+      }\n+  }\n+  \n+  .file-info {\n+    display: flex;\n+    align-items: center;\n+    margin-top: 1rem;\n+    padding: 0.5rem 1rem;\n+    background: #f5f5f5;\n+    border-radius: 4px;\n+  \n+    span {\n+      margin-right: 0.5rem;\n+      flex-grow: 1;\n+    }\n+  }\n+  \n+  .toggle-container {\n+    margin: 1rem 0;\n+  }\n+  \n+  .form-actions {\n+    grid-column: 1 / -1;\n+    display: flex;\n+    justify-content: flex-end;\n+    gap: 1rem;\n+    margin-top: 1rem;\n+  \n+    button {\n+      min-width: 120px;\n+    }\n+  }\n+  \n+  mat-form-field {\n+    width: 100%;\n+  }\n+  \n+  @media (max-width: 768px) {\n+    .form-grid {\n+      grid-template-columns: 1fr;\n+    }\n+  }\n+\n+  \n+.image-preview-container {\n+  width: 200px;\n+  height: 175px;\n+  border: 2px dashed #ccc;\n+  display: flex;\n+  align-items: center;\n+  justify-content: center;\n+  background: #f5f5f5;\n+  border-radius: 8px;\n+  overflow: hidden;\n+}\n+\n+.image-preview {\n+  width: 100%;\n+  height: 100%;\n+  object-fit: cover;\n+}\n+\n+.browse-link {\n+  color: #0d6efd; /* Bootstrap primary blue */\n+  cursor: pointer;\n+  text-decoration: underline;\n+}\n+\n+.browse-link:hover {\n+  color: #0a58ca; /* Darker on hover */\n+}\n+\n+.upload-buttons {\n+  display: flex;\n+  gap: 12px;\n+}\n+\n+mat-error {\n+  font-size: 12px;\n+  margin-top: 4px;\n+}\n+\n+.form-actions {\n+  display: flex;\n+  gap: 12px;\n+  justify-content: flex-end;\n+}\n\\ No newline at end of file\n",
+        "new_path": "src/app/views/doctors/doctors/doctors.component.scss",
+        "old_path": "src/app/views/doctors/doctors/doctors.component.scss",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -1,22 +1,406 @@\n import { HttpClient } from '@angular/common/http';\n-import { Component } from '@angular/core';\n+import { Component, viewChild, ViewChild } from '@angular/core';\n+import { DoctorService } from '../service/doctor.service';\n+import { AgGridModule } from 'ag-grid-angular';\n+import { ClientSideRowModelModule, ColDef, ValidationModule, themeQuartz, iconSetQuartzLight, TextFilterModule, GridReadyEvent, ColumnAutoSizeModule, PaginationModule, RowSelectionModule, GridApi, RowSelectionOptions, GridOptions } from 'ag-grid-community';\n+import { ModuleRegistry } from 'ag-grid-community';\n+// Register the required modules\n+ModuleRegistry.registerModules([ClientSideRowModelModule, ColumnAutoSizeModule, ValidationModule, TextFilterModule, PaginationModule, RowSelectionModule]);\n+import * as XLSX from 'xlsx';\n+import * as FileSaver from 'file-saver';\n+\n+import { MatSlideToggleModule } from '@angular/material/slide-toggle';\n+import { MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';\n+import { MatDrawer } from '@angular/material/sidenav';\n+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';\n+import { MatButtonModule } from '@angular/material/button';\n+import { MatSelectModule } from '@angular/material/select';\n+import { MatFormFieldModule } from '@angular/material/form-field';\n+import { MatInputModule } from '@angular/material/input';\n+import { MatIconModule } from '@angular/material/icon';\n+import { SweetAlertService } from '@/app/core/service/sweet-alert.service';\n+import { ActionCellRendererComponent } from '@/app/shared/components/action-cell-renderer/action-cell-renderer.component';\n+import { CustomService } from '@/app/shared/service/custom.service';\n+import { MatNativeDateModule } from '@angular/material/core';\n+import { any } from 'ramda';\n+import { forkJoin } from 'rxjs';\n+import { SetFilterModel } from 'ag-grid-community';\n+import { DoctorDetailsComponent } from \"../doctor-details/doctor-details.component\";\n+\n+\n \n @Component({\n   selector: 'app-doctors',\n   standalone: true,\n-  imports: [],\n+  imports: [AgGridModule,\n+    MatSidenavModule,\n+    MatFormFieldModule,\n+    MatSelectModule,\n+    MatButtonModule,\n+    FormsModule,\n+    ReactiveFormsModule,\n+    MatFormFieldModule,\n+    MatInputModule,\n+    MatSelectModule,\n+    MatSlideToggleModule,\n+    MatButtonModule,\n+    MatIconModule, DoctorDetailsComponent],\n   templateUrl: './doctors.component.html',\n   styleUrl: './doctors.component.scss'\n })\n export class DoctorsComponent {\n-constructor(private http: HttpClient){\n+  formatDate(value: any): string {\n+    throw new Error('Method not implemented.');\n+  }\n \n-}\n+\n+\n+  @ViewChild('drawer') drawer!: MatDrawer;\n+  mode: MatDrawerMode = 'over';\n+  hasBackdrop: boolean | undefined = true;\n+  position: 'start' | 'end' = 'end';\n+\n+\n+  // Pagination Settings\n+  private clinicGridApi!: GridApi\n+  paginationPageSize = 10\n+  paginationPageSizeSelector: number[] | boolean = [10, 20, 50]\n+\n+  pagination = true;\n+\n+  myTheme = themeQuartz\n+    .withPart(iconSetQuartzLight)\n+    .withParams({\n+      backgroundColor: \"#ffffff\",\n+      browserColorScheme: \"light\",\n+      columnBorder: false,\n+      fontFamily: \"Arial\",\n+      foregroundColor: \"rgb(46, 55, 66)\",\n+      headerBackgroundColor: \"#F9FAFB\",\n+      headerFontSize: 14,\n+      headerFontWeight: 600,\n+      headerTextColor: \"#919191\",\n+      oddRowBackgroundColor: \"#F9FAFB\",\n+      rowBorder: false,\n+      sidePanelBorder: false,\n+      spacing: 8,\n+      wrapperBorder: false,\n+      wrapperBorderRadius: 0\n+    });\n+\n+  // Row Data\n+  rowData: any[] = [];\n+\n+  // Column Definitions\n+  colDefs: ColDef[] = [\n+    { field: 'first_name', headerName: 'First Name', filter: true, sortable: true },\n+    { field: 'last_name', headerName: 'Last Name', filter: true, sortable: true },\n+    { field: 'mobile', headerName: 'Mobile', filter: true, sortable: true },\n+    { field: 'clinic', headerName: 'Clinic', filter: true, sortable: true },\n+    {\n+      field: 'status',\n+      headerName: 'Status',\n+      cellRenderer: (params: any) => params.value ? 'Active' : 'Inactive',\n+      filter: 'agSetColumnFilter',\n+      filterParams: {\n+        values: ['Active', 'Inactive']\n+      }\n+    },\n+    {\n+      headerName: 'Action',\n+      field: 'action',\n+      sortable: false,\n+      filter: false,\n+      cellRenderer: 'actionCellRenderer',\n+      width: 180 // Slightly wider for Material buttons\n+    }\n+  ];\n+\n+  // Default Column Definitions\n+  defaultColDef: ColDef = {\n+    flex: 1,\n+    minWidth: 100,\n+    resizable: true\n+  };\n+\n+  gridOptions: GridOptions = {\n+    context: {\n+      componentParent: this\n+    },\n+    components: {\n+      actionCellRenderer: ActionCellRendererComponent\n+    }\n+  };\n+\n+  doctorForm: FormGroup;\n+  imagePreview: string | null = null;\n+  selectedFile: File | null = null;\n+  selectedBlob: Blob | null = null;\n+\n+  currentDoctorId: any;\n+  countryArray: any[] = [];\n+  stateArray: any[] = [];\n+  cityArray: any[] = [];\n+\n+  rowSelection: RowSelectionOptions | 'single' | 'multiple' = {\n+    mode: 'multiRow',\n+    groupSelects: 'descendants',\n+  } \n+\n+  allRowsSelected: boolean = true;\n+  doctorViewFlag: boolean = false;\n+  actionData:any\n+  enableApplySelectionTag: boolean = true;\n+\n+\n+  constructor(private doctorService: DoctorService, private customService: CustomService, private fb: FormBuilder, private alertService: SweetAlertService) {\n+    this.doctorForm = this.fb.group({\n+      username: ['', Validators.required],\n+      first_name: ['', Validators.required],\n+      last_name: ['', Validators.required],\n+      email: ['', [Validators.required, Validators.email]],\n+      password: ['', [Validators.required, Validators.minLength(6)]],\n+      confirmPassword: ['', Validators.required],\n+      gender: [''],\n+      mobile: ['', [Validators.required, Validators.pattern(/^\\d{10}$/)]],\n+      experience: [''],\n+      Signature: [''],\n+      Description: [''],\n+      address: [''],\n+      country: [''],\n+      state: [''],\n+      city: [''],\n+      pincode: [''],\n+      latitude: [''],\n+      longitude: [''],\n+      image: [null],\n+      clinic_id: ['', Validators.required],\n+      services_id: ['', Validators.required]\n+    },\n+    { validators: this.passwordMatchValidator }\n+  );\n+  }\n+\n+  passwordMatchValidator(formGroup: FormGroup) {\n+    const password = formGroup.get('password')?.value;\n+    const confirmPassword = formGroup.get('confirmPassword')?.value;\n+  \n+    return password === confirmPassword ? null : { mismatch: true };\n+  }\n+\n+  \n   ngOnInit(){\n-    console.log(\"doctor called\")\n-    this.http.get<any>('http://192.168.10.145:8080/api/clinics').subscribe(user => {\n-      console.log(\"clinic\",user);\n+    // this.getClinicData()\n+    this.getAllClinic()\n+    this.getCountryData()\n+    this.getAllDoctors()\n+  }\n+\n+  clinics: { id: number; name: string }[] = [];\n+  services: { id: number; name: string }[] = [];\n+  onClinicChange(event: any): void {\n+    const clinicId = event.value;\n+    if (clinicId) {\n+      // Fetch services for the selected clinic using ApiService\n+      this.doctorService.getServicesByClinicId(clinicId).subscribe({\n+        next: (services: { id: number; name: string; }[]) => {\n+          this.services = services;\n+          // Enable services dropdown\n+          this.doctorForm.get('services_id')?.enable();\n+          // Reset services_id to avoid invalid selection\n+          this.doctorForm.get('services_id')?.setValue('');\n+        },\n+        error: (error: any) => {\n+          console.error('Error fetching services:', error);\n+          this.services = [];\n+          this.doctorForm.get('services_id')?.disable();\n+          this.doctorForm.get('services_id')?.setValue('');\n+          // Handle error (e.g., show user message)\n+        }\n+      });\n+    } else {\n+      // Clear services if no clinic is selected\n+      this.services = [];\n+      this.doctorForm.get('services_id')?.disable();\n+      this.doctorForm.get('services_id')?.setValue('');\n+    }\n+  }\n+\n+  getDoctorData() {\n+    this.doctorService.getDoctorsList().subscribe((doctors: any) => {\n+      console.log(\"doctors\", doctors);\n+      this.rowData = doctors\n+    })\n+  }\n+\n+  getAllDoctors(){\n+    \n+    this.doctorService.getDoctorsList().subscribe(doctors => {\n+      console.log(\"doctors\", doctors);\n+      this.rowData = doctors;\n+      ;\n     });\n+  }\n+\n+  getAllClinic(){\n+    this.doctorService.getClinics().subscribe({\n+      next: (clinics: { id: number; name: string; }[]) => {\n+        this.clinics = clinics;\n+      },\n+      error: (error: any) => {\n+        console.error('Error fetching clinics:', error);\n+      }\n+    });\n+  }\n+\n+  onSubmit(): void {\n+    console.log('Form this.doctorForm:', this.doctorForm.value);\n+    console.log('Form Valid:', this.doctorForm.valid);\n+    console.log('doctorForm Errors:', this.doctorForm.errors);\n+\n+    if (this.doctorForm.valid) {\n+      // Here you would typically call your API service\n+      // Append image file if exists\n+      //  if (this.selectedFile) {\n+      //   formData.append('image', this.selectedFile, this.selectedFile.name);\n+      // }\n+\n+      // Append image blob if exists\n+      // if (this.selectedBlob) {\n+      //   formData.append('image', this.selectedBlob, 'image-upload.jpg');\n+      // }\n+      const payload = this.doctorForm.value\n+      console.log('Form submitted:', payload);\n+\n+\n+      if (this.currentDoctorId) {\n+        this.doctorService.updateDoctorData(this.currentDoctorId, payload).subscribe(doctors => {\n+          console.log(\"doctors\", doctors);\n+          this.getDoctorData();\n+          this.drawer.close();\n+          this.currentDoctorId = null;\n+        });\n+      } else {\n+        this.doctorService.saveDoctor(payload).subscribe((doctors: any) => {\n+          console.log(\"doctors\", doctors);\n+          this.getDoctorData();\n+          this.drawer.close();\n+        });\n+      }\n+    }\n+  }\n+\n+  onFileSelected(event: Event){}\n+\n+  removeImage(){}\n   \n+  onCancel(): void {\n+    this.drawer.close();\n+    this.doctorForm.reset();\n+    this.selectedFile = null;\n+    this.doctorViewFlag = false;\n+  }\n+\n+  onCloseDialog(){\n+    this.drawer.close();\n+  }\n+\n+  optionSelected(){\n+    this.allRowsSelected = false\n+  }\n+\n+  exportToExcel(){}\n+\n+  open(){\n+    this.drawer.open();\n+  }\n+\n+  getCountryData() {\n+    this.customService.getCountryList().subscribe(country => {\n+      this.countryArray = country;\n+    });\n+  }\n+\n+  onCountryChange(data: any): void {\n+    console.log(\"dataaa\", data)\n+    this.getStateData(data.value);\n   }\n+\n+  getStateData(id: Number) {\n+    this.customService.getStateList(id).subscribe(states => {\n+      this.stateArray = states;\n+    });\n+  }\n+\n+  onStateChange(data: any): void {\n+    this.getCityData(data.value);\n+  }\n+\n+  getCityData(stateId: Number) {\n+    this.customService.getCityList(stateId).subscribe(cities => {\n+      this.cityArray = cities;\n+    });\n+  }\n+\n+\n+  onGridReady(event: any){}\n+\n+  edit(id: string | null) {\n+      this.doctorViewFlag = false;\n+      this.doctorService.getDoctorData(id).subscribe((doctor: any) => {\n+      this.currentDoctorId = id;\n+        // Load states and cities together\n+        forkJoin({\n+          states: this.customService.getStateList(doctor.country),\n+          cities: this.customService.getCityList(doctor.state),\n+        }).subscribe(({ states, cities }) => {\n+          this.stateArray = states;\n+          this.cityArray = cities;\n+          this.assignValues(doctor)\n+          this.drawer.open();\n+        });\n+      });\n+    }\n+\n+    assignValues(doctor: any) {\n+      // Patch fields from API response to doctorForm\n+      this.doctorForm.patchValue({\n+        username: doctor.username,\n+        first_name: doctor.first_name,\n+        last_name: doctor.last_name,\n+        email: doctor.email,\n+        mobile: doctor.mobile,\n+        gender: doctor.gender,\n+        experience: doctor.experience,\n+        Signature: doctor.Signature,\n+        Description: doctor.Description,\n+        country: doctor.country,\n+        state: doctor.state,\n+        city: doctor.city,\n+        address: doctor.address,\n+        pincode: doctor.pincode,\n+        latitude: doctor.latitude,\n+        longitude: doctor.longitude,\n+        \n+      });\n+    }\n+\n+    view(id: string | null){\n+      this.currentDoctorId = id;\n+      this.doctorViewFlag = true;\n+      this.drawer.open();\n+    }\n+\n+\n+    delete(id: string | null) {\n+      const sub = \"delete\"\n+      this.doctorService.deleteDoctor(id).subscribe((clinics: any) => {\n+        this.alertService.executeExample(sub);\n+        this.getDoctorData();\n+      });\n+    }\n+\n+\n+\n }\n+\n",
+        "new_path": "src/app/views/doctors/doctors/doctors.component.ts",
+        "old_path": "src/app/views/doctors/doctors/doctors.component.ts",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -13,15 +13,41 @@ export class DoctorService {\n  \n    constructor(protected http: HttpClient) { }\n  \n-   getDoctorList(): Observable<any> {\n+   getDoctorsList(): Observable<any> {\n      return this.http\n-       .get<any>(`${this.apiUrl}/admin/doctors`, { observe: 'response' })\n+       .get<any>(`${this.apiUrl}/doctors`, { observe: 'response' })\n        .pipe(map((res) => res.body));\n    }\n  \n    saveDoctor(data:any): Observable<any> {\n      return this.http\n-       .post<any>(`${this.apiUrl}/admin/doctors`,data, { observe: 'response' })\n+       .post<any>(`${this.apiUrl}/doctors`,data, { observe: 'response' })\n        .pipe(map((res) => res.body));\n    }\n-}\n+\n+   getClinics(): Observable<{ id: number; name: string }[]> {\n+    return this.http.get<{ id: number; name: string }[]>(`${this.apiUrl}/admin/clinics`);\n+  }\n+\n+  getServicesByClinicId(clinicId: number): Observable<{ id: number; name: string }[]> {\n+    return this.http.get<{ services: {id: number; name: string }[] }>(`${this.apiUrl}/service/clinics/${clinicId}/services`).pipe(map(response => response.services));\n+  }\n+\n+  updateDoctorData(id:any, data:any): Observable<any> {\n+    return this.http\n+      .put<any>(`${this.apiUrl}/admin/clinics/${id}`,data, { observe: 'response' })\n+      .pipe(map((res) => res.body));\n+  }\n+\n+  getDoctorData(id:any): Observable<any> {\n+    return this.http\n+      .get<any>(`${this.apiUrl}/doctors/${id}`, { observe: 'response' })\n+      .pipe(map((res) => res.body));\n+  }\n+\n+  deleteDoctor(id:any): Observable<any> {\n+    return this.http\n+      .delete<any>(`${this.apiUrl}/doctors/${id}`, { observe: 'response' })\n+      .pipe(map((res) => res.body));\n+  }\n+}\n\\ No newline at end of file\n",
+        "new_path": "src/app/views/doctors/service/doctor.service.ts",
+        "old_path": "src/app/views/doctors/service/doctor.service.ts",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -0,0 +1,145 @@\n+import { CommonModule } from '@angular/common';\n+import { Component, OnInit } from '@angular/core';\n+import { ICellRendererAngularComp } from 'ag-grid-angular';\n+import { ICellRendererParams } from 'ag-grid-community';\n+import { CustomService } from '@/app/shared/service/custom.service';\n+import { environment } from '@/environments/environment';\n+\n+@Component({\n+  selector: 'app-clinic-cell-renderer',\n+  standalone: true,\n+  imports: [CommonModule],\n+  template: `\n+    <div class=\"d-flex align-items-center gap-2\">\n+      <div class=\"avatar-circle\" *ngIf=\"!clinicImage\">\n+        <span class=\"avatar-initials\">{{ initials }}</span>\n+      </div>\n+      <img *ngIf=\"clinicImage\" [src]=\"clinicImage\" class=\"avatar-image\" alt=\"Clinic\" />\n+      <div>\n+        <div class=\"fw-semibold\">{{ clinicName }}</div>\n+        <div class=\"text-muted small\">{{ clinicEmail }}</div>\n+      </div>\n+    </div>\n+  `,\n+  styles: [`\n+    .avatar-circle {\n+      width: 36px;\n+      height: 36px;\n+      border-radius: 50%;\n+      background: #e5e7eb;\n+      display: flex;\n+      align-items: center;\n+      justify-content: center;\n+      font-weight: 600;\n+      font-size: 16px;\n+      color: #555;\n+    }\n+    .avatar-image {\n+      width: 36px;\n+      height: 36px;\n+      border-radius: 50%;\n+      object-fit: cover;\n+      border: 1px solid #e5e7eb;\n+    }\n+    .avatar-initials {\n+      text-transform: uppercase;\n+    }\n+    .fw-semibold { font-weight: 600; }\n+    .text-muted { color: #888; }\n+    .small { font-size: 12px; }\n+    .gap-2 { gap: 0.5rem; }\n+    .d-flex { display: flex; }\n+    .align-items-center { align-items: center; }\n+  `]\n+})\n+export class ClinicCellRendererComponent implements ICellRendererAngularComp {\n+  params: any;\n+  initials: string = '?';\n+  clinicName: string = 'Loading...';\n+  clinicEmail: string = '';\n+  clinicImage: string | null = null;\n+  private apiUrl = environment.serverUrl;\n+  \n+  constructor(private customService: CustomService) {}\n+\n+  agInit(params: ICellRendererParams): void {\n+    this.params = params;\n+    console.log('Clinic cell data:', params.data);\n+    \n+    // Check if we have direct clinic data\n+    if (params.data?.clinic?.name) {\n+      this.clinicName = params.data.clinic.name;\n+      this.clinicEmail = params.data.clinic.email || '';\n+      this.initials = this.getInitials(params.data.clinic.name);\n+      \n+      // Handle clinic image\n+      this.handleClinicImage(params.data.clinic);\n+      return;\n+    }\n+    \n+    // Get clinic_id from the data\n+    const clinicId = params.data?.clinic_id;\n+    \n+    if (clinicId) {\n+      // Fetch clinic details using the clinic_id\n+      this.customService.getClinicById(clinicId).subscribe(\n+        (clinic: any) => {\n+          if (clinic) {\n+            this.clinicName = clinic.name || 'Unknown Clinic';\n+            this.clinicEmail = clinic.email || '';\n+            this.initials = this.getInitials(clinic.name);\n+            \n+            // Handle clinic image\n+            this.handleClinicImage(clinic);\n+          } else {\n+            this.clinicName = 'Clinic Not Found';\n+            this.initials = '?';\n+            this.clinicImage = null;\n+          }\n+        },\n+        (error) => {\n+          console.error('Error fetching clinic:', error);\n+          this.clinicName = 'Error Loading Clinic';\n+          this.initials = '!';\n+          this.clinicImage = null;\n+        }\n+      );\n+    } else {\n+      this.clinicName = 'No Clinic Assigned';\n+      this.initials = '?';\n+      this.clinicImage = null;\n+    }\n+  }\n+\n+  refresh(params: ICellRendererParams): boolean {\n+    this.agInit(params);\n+    return true;\n+  }\n+  \n+  handleClinicImage(clinic: any): void {\n+    if (clinic?.image || clinic?.profile_image) {\n+      const imageUrl = clinic.image || clinic.profile_image;\n+      \n+      // Check if the image URL is already a complete URL\n+      if (imageUrl.startsWith('http')) {\n+        this.clinicImage = imageUrl;\n+      } else if (imageUrl.startsWith('/')) {\n+        // If it starts with a slash, just append to API URL\n+        this.clinicImage = `${this.apiUrl}${imageUrl}`;\n+      } else {\n+        // Otherwise, prepend the API URL with a slash\n+        this.clinicImage = `${this.apiUrl}/${imageUrl}`;\n+      }\n+      console.log('Clinic image URL:', this.clinicImage);\n+    } else {\n+      this.clinicImage = null;\n+    }\n+  }\n+\n+  getInitials(name: string): string {\n+    if (!name) return '?';\n+    const parts = name.split(' ');\n+    if (parts.length === 1) return parts[0][0];\n+    return parts[0][0] + parts[1][0];\n+  }\n+} \n\\ No newline at end of file\n",
+        "new_path": "src/app/views/recepetionist/receptionist-list/clinic-cell-renderer.component.ts",
+        "old_path": "src/app/views/recepetionist/receptionist-list/clinic-cell-renderer.component.ts",
+        "a_mode": "0",
+        "b_mode": "100644",
+        "new_file": true,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -0,0 +1,116 @@\n+import { CommonModule } from '@angular/common';\n+import { Component } from '@angular/core';\n+import { ICellRendererAngularComp } from 'ag-grid-angular';\n+import { ICellRendererParams } from 'ag-grid-community';\n+import { environment } from '@/environments/environment';\n+\n+@Component({\n+  selector: 'app-name-cell-renderer',\n+  standalone: true,\n+  imports: [CommonModule],\n+  template: `\n+    <div class=\"d-flex align-items-center gap-2\">\n+      <div class=\"avatar-circle\" *ngIf=\"!profileImage\">\n+        <span class=\"avatar-initials\">{{ initials }}</span>\n+      </div>\n+      <img *ngIf=\"profileImage\" [src]=\"profileImage\" class=\"avatar-image\" alt=\"Profile\" />\n+      <div>\n+        <div class=\"fw-semibold\">{{ displayName }}</div>\n+        <div class=\"text-muted small\">{{ displayEmail }}</div>\n+      </div>\n+    </div>\n+  `,\n+  styles: [`\n+    .avatar-circle {\n+      width: 36px;\n+      height: 36px;\n+      border-radius: 50%;\n+      background: #e5e7eb;\n+      display: flex;\n+      align-items: center;\n+      justify-content: center;\n+      font-weight: 600;\n+      font-size: 16px;\n+      color: #555;\n+    }\n+    .avatar-image {\n+      width: 36px;\n+      height: 36px;\n+      border-radius: 50%;\n+      object-fit: cover;\n+      border: 1px solid #e5e7eb;\n+    }\n+    .avatar-initials {\n+      text-transform: uppercase;\n+    }\n+    .fw-semibold { font-weight: 600; }\n+    .text-muted { color: #888; }\n+    .small { font-size: 12px; }\n+    .gap-2 { gap: 0.5rem; }\n+    .d-flex { display: flex; }\n+    .align-items-center { align-items: center; }\n+  `]\n+})\n+export class NameCellRendererComponent implements ICellRendererAngularComp {\n+  params: any;\n+  initials: string = '';\n+  displayName: string = '';\n+  displayEmail: string = '';\n+  profileImage: string | null = null;\n+  private apiUrl = environment.serverUrl;\n+\n+  agInit(params: ICellRendererParams): void {\n+    this.params = params;\n+    console.log('Name cell data:', params.data);\n+    this.updateDisplayValues();\n+  }\n+\n+  refresh(params: ICellRendererParams): boolean {\n+    this.params = params;\n+    this.updateDisplayValues();\n+    return true;\n+  }\n+  \n+  updateDisplayValues(): void {\n+    const data = this.params.data;\n+    \n+    // Handle name\n+    if (data?.name) {\n+      this.displayName = data.name;\n+      this.initials = this.getInitials(data.name);\n+    } else if (data?.first_name || data?.last_name) {\n+      this.displayName = `${data.first_name || ''} ${data.last_name || ''}`.trim();\n+      this.initials = this.getInitials(this.displayName);\n+    } else {\n+      this.displayName = 'Unknown';\n+      this.initials = '?';\n+    }\n+    \n+    // Handle email\n+    this.displayEmail = data?.email || '';\n+    \n+    // Handle profile image\n+    if (data?.profile_image) {\n+      // Check if the image URL is already a complete URL\n+      if (data.profile_image.startsWith('http')) {\n+        this.profileImage = data.profile_image;\n+      } else if (data.profile_image.startsWith('/')) {\n+        // If it starts with a slash, just append to API URL\n+        this.profileImage = `${this.apiUrl}${data.profile_image}`;\n+      } else {\n+        // Otherwise, prepend the API URL with a slash\n+        this.profileImage = `${this.apiUrl}/${data.profile_image}`;\n+      }\n+      console.log('Profile image URL:', this.profileImage);\n+    } else {\n+      this.profileImage = null;\n+    }\n+  }\n+\n+  getInitials(name: string): string {\n+    if (!name) return '?';\n+    const parts = name.split(' ');\n+    if (parts.length === 1) return parts[0][0];\n+    return parts[0][0] + parts[1][0];\n+  }\n+} \n\\ No newline at end of file\n",
+        "new_path": "src/app/views/recepetionist/receptionist-list/name-cell-renderer.component.ts",
+        "old_path": "src/app/views/recepetionist/receptionist-list/name-cell-renderer.component.ts",
+        "a_mode": "0",
+        "b_mode": "100644",
+        "new_file": true,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -0,0 +1,229 @@\n+<mat-drawer-container class=\"drawer-container\" [hasBackdrop]=\"hasBackdrop\">\n+  <!-- Right side drawer -->\n+  <mat-drawer #drawer [mode]=\"mode\" [position]=\"position\" class=\"right-drawer\">\n+    <div class=\"drawer-content\">\n+      <div class=\"drawer-header sticky-header d-flex align-items-center justify-content-between mb-0\">\n+        <h2 class=\"drawer-title\">Create New Receptionist</h2>\n+        <button mat-icon-button (click)=\"onCancel()\"><i class=\"material-icons\">close</i></button>\n+      </div>\n+      <div class=\"header-divider\"></div>\n+      <form [formGroup]=\"receptionistForm\" (ngSubmit)=\"onSubmit()\" class=\"form-grid\">\n+        <div class=\"main-two-col-grid\">\n+          <div class=\"left-col\">\n+            <label class=\"form-label\">Profile Image</label>\n+            <div class=\"image-upload-container big\">\n+              <input type=\"file\" accept=\"image/*\" #fileInput (change)=\"onFileSelected($event)\" style=\"display: none;\">\n+              <div class=\"image-preview-container big\">\n+                @if (imagePreview) {\n+                <img [src]=\"imagePreview\" alt=\"Image preview\" class=\"image-preview big\">\n+                } @else {\n+                <div class=\"browse-link\" (click)=\"fileInput.click()\">Drop files here or <span class=\"text-primary\">browse files</span></div>\n+                }\n+              </div>\n+              <div class=\"upload-buttons mt-2\">\n+                @if (imagePreview) {\n+                <button mat-raised-button color=\"warn\" type=\"button\" (click)=\"removeImage()\">\n+                  Remove\n+                </button>\n+                }\n+              </div>\n+            </div>\n+            <mat-form-field appearance=\"outline\">\n+              <mat-label>Gender</mat-label>\n+              <mat-select formControlName=\"gender\">\n+                <mat-option value=\"Male\">Male</mat-option>\n+                <mat-option value=\"Female\">Female</mat-option>\n+                <mat-option value=\"Other\">Other</mat-option>\n+              </mat-select>\n+            </mat-form-field>\n+            <mat-form-field appearance=\"outline\">\n+              <mat-label>Password *</mat-label>\n+              <input matInput formControlName=\"password\" placeholder=\"Password\" type=\"password\">\n+              @if(receptionistForm.get('password')?.hasError('required')){\n+              <mat-error>Password is required</mat-error>\n+              }\n+            </mat-form-field>\n+            <mat-form-field appearance=\"outline\">\n+              <mat-label>Date of Birth</mat-label>\n+              <input matInput [matDatepicker]=\"dobPicker\" formControlName=\"dob\" placeholder=\"Select Date Of Birth\">\n+              <mat-datepicker-toggle matSuffix [for]=\"dobPicker\"></mat-datepicker-toggle>\n+              <mat-datepicker #dobPicker></mat-datepicker>\n+            </mat-form-field>\n+          </div>\n+          <div class=\"right-col\">\n+            <mat-form-field appearance=\"outline\">\n+              <mat-label>First Name *</mat-label>\n+              <input matInput formControlName=\"first_name\" placeholder=\"First Name\">\n+              @if(receptionistForm.get('first_name')?.hasError('required')){\n+              <mat-error>First Name is required</mat-error>\n+              }\n+            </mat-form-field>\n+            <mat-form-field appearance=\"outline\">\n+              <mat-label>Last Name *</mat-label>\n+              <input matInput formControlName=\"last_name\" placeholder=\"Last Name\">\n+              @if(receptionistForm.get('last_name')?.hasError('required')){\n+              <mat-error>Last Name is required</mat-error>\n+              }\n+            </mat-form-field>\n+            <mat-form-field appearance=\"outline\">\n+              <mat-label>Email *</mat-label>\n+              <input matInput formControlName=\"email\" placeholder=\"Email\" type=\"email\">\n+              @if(receptionistForm.get('email')?.hasError('required')){\n+              <mat-error>Email is required</mat-error>\n+              }\n+              @if(receptionistForm.get('email')?.hasError('email')){\n+              <mat-error>Please enter a valid email</mat-error>\n+              }\n+            </mat-form-field>\n+            <mat-form-field appearance=\"outline\">\n+              <mat-label>Username *</mat-label>\n+              <input matInput formControlName=\"username\" placeholder=\"Username\">\n+              @if(receptionistForm.get('username')?.hasError('required')){\n+              <mat-error>Username is required</mat-error>\n+              }\n+            </mat-form-field>\n+            <mat-form-field appearance=\"outline\">\n+              <mat-label>Phone Number *</mat-label>\n+              <div class=\"d-flex align-items-center\">\n+                <span class=\"country-picker-placeholder\">\ud83c\udf10</span>\n+                <input matInput formControlName=\"mobile\" placeholder=\"Enter a phone number\">\n+              </div>\n+              @if(receptionistForm.get('mobile')?.hasError('required')){\n+              <mat-error>Phone number is required</mat-error>\n+              }\n+            </mat-form-field>\n+            <mat-form-field appearance=\"outline\">\n+              <mat-label>Confirm password *</mat-label>\n+              <input matInput formControlName=\"confirm_password\" placeholder=\"Confirm Password\" type=\"password\">\n+              @if(receptionistForm.get('confirm_password')?.hasError('required')){\n+              <mat-error>Confirm password is required</mat-error>\n+              }\n+              @if(receptionistForm.hasError('passwordMismatch')){\n+              <mat-error>Passwords do not match</mat-error>\n+              }\n+            </mat-form-field>\n+            <div class=\"status-toggle-row\">\n+              <mat-slide-toggle formControlName=\"status\">Status</mat-slide-toggle>\n+            </div>\n+          </div>\n+        </div>\n+\n+        <h3 class=\"mt-4 mb-2\">Other details</h3>\n+        <div class=\"row g-3\">\n+          <div class=\"col-md-4\">\n+            <mat-form-field appearance=\"outline\">\n+              <mat-label>Select Clinic Centre *</mat-label>\n+              <mat-select formControlName=\"clinic_id\">\n+                @for(clinic of clinicsList; track clinic){\n+                <mat-option [value]=\"clinic.id\">\n+                  {{ clinic.name }}\n+                </mat-option>\n+                }\n+              </mat-select>\n+              @if(receptionistForm.get('clinic_id')?.hasError('required')){\n+              <mat-error>Clinic is required</mat-error>\n+              }\n+            </mat-form-field>\n+          </div>\n+          <div class=\"col-md-8\">\n+            <mat-form-field appearance=\"outline\">\n+              <mat-label>Address</mat-label>\n+              <textarea matInput formControlName=\"address\" placeholder=\"Address\"></textarea>\n+            </mat-form-field>\n+          </div>\n+          <div class=\"col-md-4\">\n+            <mat-form-field appearance=\"outline\">\n+              <mat-label>Country</mat-label>\n+              <mat-select formControlName=\"country\" (selectionChange)=\"onCountryChange($event)\">\n+                @for(country of countryArray; track country){\n+                <mat-option [value]=\"country.id\">\n+                  {{ country.name }}\n+                </mat-option>\n+                }\n+              </mat-select>\n+            </mat-form-field>\n+          </div>\n+          <div class=\"col-md-4\">\n+            <mat-form-field appearance=\"outline\">\n+              <mat-label>State</mat-label>\n+              <mat-select formControlName=\"state\" (selectionChange)=\"onStateChange($event)\" [disabled]=\"!stateArray.length\">\n+                @for(state of stateArray; track state){\n+                <mat-option [value]=\"state.id\">\n+                  {{ state.name }}\n+                </mat-option>\n+                }\n+              </mat-select>\n+            </mat-form-field>\n+          </div>\n+          <div class=\"col-md-4\">\n+            <mat-form-field appearance=\"outline\">\n+              <mat-label>City</mat-label>\n+              <mat-select formControlName=\"city\" [disabled]=\"!cityArray.length\">\n+                @for(city of cityArray; track city){\n+                <mat-option [value]=\"city.id\">\n+                  {{ city.name }}\n+                </mat-option>\n+                }\n+              </mat-select>\n+            </mat-form-field>\n+          </div>\n+          <div class=\"col-md-4\">\n+            <mat-form-field appearance=\"outline\">\n+              <mat-label>Postal Code</mat-label>\n+              <input matInput formControlName=\"pincode\" placeholder=\"Postal Code\">\n+            </mat-form-field>\n+          </div>\n+        </div>\n+\n+        <div class=\"form-actions mt-4\">\n+          <button mat-raised-button color=\"warn\" type=\"button\" (click)=\"onCancel()\">Cancel</button>\n+          <button mat-raised-button color=\"primary\" type=\"submit\" [disabled]=\"!receptionistForm.valid\">Save</button>\n+        </div>\n+      </form>\n+    </div>\n+  </mat-drawer>\n+\n+  <mat-drawer-content>\n+    <!-- Main content -->\n+    <div class=\"main-content\">\n+      <div class=\"container mt-2 mb-2\">\n+        <!-- Second Row: Buttons aligned left and right -->\n+        <div class=\"row align-items-center\">\n+          <!-- Left-aligned buttons -->\n+          <div class=\"col d-flex gap-2\">\n+            <div>\n+              <select class=\"form-select\" aria-label=\"Default select example\" [ngModelOptions]=\"{standalone: true}\"\n+                [(ngModel)]=\"actionData\" (click)=\"optionSelected()\" [disabled]=\"enableApplySelectionTag\">\n+                <option value=\"0\" selected>No Action</option>\n+                <option value=\"1\">Delete</option>\n+                <option value=\"2\">Status</option>\n+              </select>\n+            </div>\n+            <button class=\"btn btn-danger\" [disabled]=\"allRowsSelected\" (click)=\"applyAction()\">Apply</button>\n+            <button style=\"background-color: #5670cc; color: #FFF;\" class=\"btn\" (click)=\"exportToExcel()\">\n+              <div style=\"display: flex; align-items: center;gap: 5px;\">\n+                <i class=\"material-icons\" style=\"font-size:18px;color:#FFF\">arrow_downward</i>\n+                <span>Export</span>\n+              </div>\n+            </button>\n+          </div>\n+\n+          <div class=\"col\"></div>\n+\n+          <div class=\"col d-flex justify-content-end gap-2\">\n+            <button class=\"btn\" (click)=\"open()\" style=\"background-color: #5670cc; color: #FFF;\">\n+              <div style=\"display: flex; align-items: center;gap: 5px;\">\n+                <i class=\"material-icons\" style=\"font-size:18px;color:#FFF\">add_circle_outline</i>\n+                <span>New</span>\n+              </div>\n+            </button>\n+          </div>\n+        </div>\n+      </div>\n+\n+      <app-ag-grid [columnDefs]=\"colDefs\" [rowData]=\"rowData\" [context]=\"{ componentParent: this }\"\n+        [components]=\"gridComponents\" (selectionChanged)=\"onSelectionChanged($event)\">\n+      </app-ag-grid>\n+    </div>\n+  </mat-drawer-content>\n+</mat-drawer-container>\n",
+        "new_path": "src/app/views/recepetionist/receptionist-list/receptionist-list.component.html",
+        "old_path": "src/app/views/recepetionist/receptionist-list/receptionist-list.component.html",
+        "a_mode": "0",
+        "b_mode": "100644",
+        "new_file": true,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -0,0 +1,370 @@\n+.drawer-container {\n+  width: 100%;\n+  height: calc(100vh - 64px);\n+  border: 1px solid rgba(0, 0, 0, 0.1);\n+}\n+\n+.right-drawer {\n+  width: 50%;\n+  padding: 20px;\n+}\n+\n+.drawer-content {\n+  padding: 20px;\n+  overflow-y: auto;\n+  max-height: 100%;\n+}\n+\n+.form-grid {\n+  display: flex;\n+  flex-direction: column;\n+  gap: 15px;\n+}\n+\n+.form-section {\n+  width: 100%;\n+}\n+\n+.form-actions {\n+  display: flex;\n+  justify-content: flex-end;\n+  gap: 10px;\n+  margin-top: 20px;\n+}\n+\n+mat-form-field {\n+  width: 100%;\n+}\n+\n+.toggle-container {\n+  margin: 10px 0;\n+}\n+\n+.image-upload-container {\n+  display: flex;\n+  flex-direction: column;\n+  align-items: center;\n+  gap: 10px;\n+  padding: 20px;\n+  border: 1px dashed #ccc;\n+  border-radius: 5px;\n+  background-color: #f9f9f9;\n+}\n+\n+.image-preview-container {\n+  width: 150px;\n+  height: 150px;\n+  border: 1px solid #ddd;\n+  display: flex;\n+  align-items: center;\n+  justify-content: center;\n+  overflow: hidden;\n+  border-radius: 5px;\n+}\n+\n+.image-preview {\n+  max-width: 100%;\n+  max-height: 100%;\n+  object-fit: contain;\n+}\n+\n+.browse-link {\n+  color: #5670cc;\n+  cursor: pointer;\n+  text-decoration: underline;\n+}\n+\n+.upload-buttons {\n+  display: flex;\n+  gap: 10px;\n+}\n+\n+.main-content {\n+  padding: 20px;\n+  height: 100%;\n+  display: flex;\n+  flex-direction: column;\n+}\n+\n+h3 {\n+  margin-top: 20px;\n+  margin-bottom: 15px;\n+  font-weight: 500;\n+}\n+\n+.drawer-header {\n+  display: flex;\n+  align-items: center;\n+  justify-content: space-between;\n+  margin-bottom: 1.5rem;\n+  background: #fff;\n+  position: sticky;\n+  top: 0;\n+  z-index: 2;\n+  padding: 1.5rem 1.5rem 0 1.5rem;\n+  border-radius: 16px 16px 0 0;\n+}\n+\n+.drawer-title {\n+  font-size: 1.7rem;\n+  font-weight: 700;\n+  margin: 0;\n+  color: #222;\n+}\n+\n+.image-upload-container.big {\n+  width: 100%;\n+  min-width: 220px;\n+  min-height: 220px;\n+  background: #f3f6fa;\n+  border: 2px dashed #bfc9d9;\n+  border-radius: 12px;\n+  display: flex;\n+  align-items: center;\n+  justify-content: center;\n+  flex-direction: column;\n+  margin-bottom: 0.5rem;\n+  transition: border-color 0.2s;\n+}\n+.image-upload-container.big:hover {\n+  border-color: #5670cc;\n+}\n+\n+.image-preview-container.big {\n+  width: 180px;\n+  height: 180px;\n+  display: flex;\n+  align-items: center;\n+  justify-content: center;\n+  background: #fff;\n+  border-radius: 8px;\n+  overflow: hidden;\n+  box-shadow: 0 2px 8px 0 rgba(60,72,88,0.06);\n+}\n+\n+.image-preview.big {\n+  max-width: 100%;\n+  max-height: 100%;\n+  object-fit: contain;\n+  border-radius: 8px;\n+}\n+\n+.browse-link {\n+  color: #5670cc;\n+  cursor: pointer;\n+  text-decoration: underline;\n+  font-size: 1rem;\n+  text-align: center;\n+  font-weight: 500;\n+}\n+\n+.form-label {\n+  font-weight: 600;\n+  margin-bottom: 0.5rem;\n+  display: block;\n+  color: #222;\n+}\n+\n+.form-grid {\n+  display: block;\n+}\n+\n+.row.g-4, .row.g-3 {\n+  display: flex;\n+  flex-wrap: wrap;\n+  gap: 1.5rem;\n+}\n+\n+.col-md-4 {\n+  flex: 0 0 32%;\n+  max-width: 32%;\n+}\n+.col-md-6 {\n+  flex: 0 0 48%;\n+  max-width: 48%;\n+}\n+.col-md-8 {\n+  flex: 0 0 65%;\n+  max-width: 65%;\n+}\n+\n+.mt-4 { margin-top: 2rem; }\n+.mb-2 { margin-bottom: 1rem; }\n+.mb-3 { margin-bottom: 1.5rem; }\n+\n+.country-picker-placeholder {\n+  margin-right: 0.5rem;\n+  font-size: 1.2rem;\n+}\n+\n+mat-form-field {\n+  width: 100%;\n+  background: #f7f8fa;\n+  border-radius: 8px;\n+}\n+\n+mat-form-field .mat-input-element {\n+  font-size: 1rem;\n+  padding: 0.7rem 1rem;\n+  border-radius: 8px;\n+}\n+\n+mat-form-field .mat-form-field-outline {\n+  border-radius: 8px;\n+}\n+\n+mat-select {\n+  background: #f7f8fa;\n+  border-radius: 8px;\n+}\n+\n+mat-slide-toggle {\n+  margin-top: 1.2rem;\n+}\n+\n+h3 {\n+  margin-top: 2.5rem;\n+  margin-bottom: 1.2rem;\n+  font-weight: 700;\n+  color: #222;\n+  font-size: 1.2rem;\n+}\n+\n+.form-actions {\n+  display: flex;\n+  justify-content: flex-end;\n+  gap: 16px;\n+  margin-top: 2.5rem;\n+}\n+\n+button[mat-raised-button] {\n+  min-width: 110px;\n+  font-weight: 600;\n+  font-size: 1rem;\n+  border-radius: 8px;\n+  box-shadow: none;\n+  padding: 0.7rem 1.5rem;\n+}\n+button[mat-raised-button][color=\"primary\"] {\n+  background: #ff6b6b;\n+  color: #fff;\n+}\n+button[mat-raised-button][color=\"warn\"] {\n+  background: #f3f6fa;\n+  color: #222;\n+}\n+button[mat-raised-button][color=\"warn\"]:hover {\n+  background: #e5e7eb;\n+}\n+\n+@media (max-width: 900px) {\n+  .col-md-4, .col-md-6, .col-md-8 {\n+    flex: 0 0 100%;\n+    max-width: 100%;\n+  }\n+  .image-upload-container.big, .image-preview-container.big {\n+    width: 100%;\n+    min-width: 120px;\n+    min-height: 120px;\n+    height: auto;\n+  }\n+  .form-grid {\n+    padding: 1rem;\n+  }\n+  .drawer-content {\n+    padding: 1rem;\n+  }\n+}\n+\n+// Responsive adjustments\n+@media (max-width: 768px) {\n+  .right-drawer {\n+    width: 100%;\n+  }\n+}\n+\n+.sticky-header {\n+  position: sticky;\n+  top: 0;\n+  z-index: 10;\n+  background: #fff;\n+  box-shadow: 0 2px 8px 0 rgba(60,72,88,0.06);\n+  border-radius: 16px 16px 0 0;\n+  padding: 1.5rem 2rem 1rem 2rem;\n+  margin-bottom: 0;\n+}\n+\n+.header-divider {\n+  height: 1px;\n+  background: #f0f1f3;\n+  margin-bottom: 1.5rem;\n+  margin-left: -2rem;\n+  margin-right: -2rem;\n+}\n+\n+.drawer-content {\n+  background: #f7f8fa;\n+  border-radius: 16px;\n+  box-shadow: 0 4px 32px 0 rgba(60,72,88,0.08);\n+  padding: 0 2rem 2rem 2rem;\n+  margin: 0;\n+  min-height: 100vh;\n+}\n+\n+.form-grid {\n+  background: #fff;\n+  border-radius: 16px;\n+  box-shadow: 0 2px 16px 0 rgba(60,72,88,0.06);\n+  padding: 2rem 2rem 1.5rem 2rem;\n+  margin: 0 auto;\n+  max-width: 900px;\n+}\n+\n+@media (max-width: 900px) {\n+  .sticky-header {\n+    padding: 1rem 1rem 0.5rem 1rem;\n+  }\n+  .header-divider {\n+    margin-left: -1rem;\n+    margin-right: -1rem;\n+  }\n+  .drawer-content {\n+    padding: 0 1rem 1rem 1rem;\n+  }\n+  .form-grid {\n+    padding: 1rem;\n+  }\n+}\n+\n+.main-two-col-grid {\n+  display: grid;\n+  grid-template-columns: 320px 1fr;\n+  gap: 2.5rem;\n+  margin-bottom: 2.5rem;\n+}\n+.left-col {\n+  display: flex;\n+  flex-direction: column;\n+  gap: 1.5rem;\n+}\n+.right-col {\n+  display: flex;\n+  flex-direction: column;\n+  gap: 1.5rem;\n+}\n+.status-toggle-row {\n+  display: flex;\n+  align-items: center;\n+  margin-top: 1.5rem;\n+}\n+\n+@media (max-width: 900px) {\n+  .main-two-col-grid {\n+    grid-template-columns: 1fr;\n+    gap: 1.5rem;\n+  }\n+  .left-col, .right-col {\n+    flex-direction: column;\n+    gap: 1.2rem;\n+  }\n+}\n",
+        "new_path": "src/app/views/recepetionist/receptionist-list/receptionist-list.component.scss",
+        "old_path": "src/app/views/recepetionist/receptionist-list/receptionist-list.component.scss",
+        "a_mode": "0",
+        "b_mode": "100644",
+        "new_file": true,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -0,0 +1,23 @@\n+import { ComponentFixture, TestBed } from '@angular/core/testing';\n+\n+import { ReceptionistListComponent } from './receptionist-list.component';\n+\n+describe('ReceptionistListComponent', () => {\n+  let component: ReceptionistListComponent;\n+  let fixture: ComponentFixture<ReceptionistListComponent>;\n+\n+  beforeEach(async () => {\n+    await TestBed.configureTestingModule({\n+      imports: [ReceptionistListComponent]\n+    })\n+    .compileComponents();\n+\n+    fixture = TestBed.createComponent(ReceptionistListComponent);\n+    component = fixture.componentInstance;\n+    fixture.detectChanges();\n+  });\n+\n+  it('should create', () => {\n+    expect(component).toBeTruthy();\n+  });\n+});\n",
+        "new_path": "src/app/views/recepetionist/receptionist-list/receptionist-list.component.spec.ts",
+        "old_path": "src/app/views/recepetionist/receptionist-list/receptionist-list.component.spec.ts",
+        "a_mode": "0",
+        "b_mode": "100644",
+        "new_file": true,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -0,0 +1,408 @@\n+import { Component, ViewChild } from '@angular/core';\n+import { ReceptionistService } from '../service/receptionist.service';\n+import { ColDef, GridApi } from 'ag-grid-community';\n+import * as XLSX from 'xlsx';\n+import * as FileSaver from 'file-saver';\n+\n+import { MatSlideToggleModule } from '@angular/material/slide-toggle';\n+import { MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';\n+import { MatDrawer } from '@angular/material/sidenav';\n+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';\n+import { MatButtonModule } from '@angular/material/button';\n+import { MatSelectModule } from '@angular/material/select';\n+import { MatFormFieldModule } from '@angular/material/form-field';\n+import { MatInputModule } from '@angular/material/input';\n+import { MatIconModule } from '@angular/material/icon';\n+import { SweetAlertService } from '@/app/core/service/sweet-alert.service';\n+import { ActionCellRendererComponent } from '@/app/shared/components/action-cell-renderer/action-cell-renderer.component';\n+import { CustomService } from '@/app/shared/service/custom.service';\n+import { forkJoin } from 'rxjs';\n+import { AgGridComponent } from '@/app/shared/components/ag-grid/ag-grid.component';\n+import { NameCellRendererComponent } from './name-cell-renderer.component';\n+import { ClinicCellRendererComponent } from './clinic-cell-renderer.component';\n+import { VerificationBadgeCellRendererComponent } from './verification-badge-cell-renderer.component';\n+import { StatusToggleCellRendererComponent } from './status-toggle-cell-renderer.component';\n+import { MatDatepickerModule } from '@angular/material/datepicker';\n+import { MatNativeDateModule } from '@angular/material/core';\n+\n+@Component({\n+  selector: 'app-receptionist-list',\n+  standalone: true,\n+  imports: [MatSidenavModule, MatFormFieldModule, MatSelectModule, MatButtonModule, FormsModule,\n+    ReactiveFormsModule,\n+    MatFormFieldModule,\n+    MatInputModule,\n+    MatSelectModule,\n+    MatSlideToggleModule,\n+    MatButtonModule,\n+    MatIconModule,\n+    AgGridComponent,\n+    FormsModule,\n+    NameCellRendererComponent,\n+    ClinicCellRendererComponent,\n+    VerificationBadgeCellRendererComponent,\n+    StatusToggleCellRendererComponent,\n+    MatDatepickerModule,\n+    MatNativeDateModule\n+  ],\n+  templateUrl: './receptionist-list.component.html',\n+  styleUrl: './receptionist-list.component.scss'\n+})\n+export class ReceptionistListComponent {\n+  @ViewChild('drawer') drawer!: MatDrawer;\n+  mode: MatDrawerMode = 'over';\n+  hasBackdrop: boolean | undefined = true;\n+  position: 'start' | 'end' = 'end';\n+\n+  // Pagination Settings\n+  private receptionistGridApi!: GridApi\n+  paginationPageSize = 10\n+  paginationPageSizeSelector: number[] | boolean = [10, 20, 50]\n+  pagination = true;\n+  \n+  // Row Data\n+  rowData: any[] = [];\n+  currentReceptionistId: any;\n+  countryArray: any[] = [];\n+  stateArray: any[] = [];\n+  cityArray: any[] = [];\n+\n+  allRowsSelected: boolean = true;\n+  receptionistViewFlag: boolean = false;\n+  actionData: any = 0;\n+  enableApplySelectionTag: boolean = true;\n+\n+  gridComponents = {\n+    actionCellRenderer: ActionCellRendererComponent,\n+    nameCellRenderer: NameCellRendererComponent,\n+    clinicCellRenderer: ClinicCellRendererComponent,\n+    verificationBadgeCellRenderer: VerificationBadgeCellRendererComponent,\n+    statusToggleCellRenderer: StatusToggleCellRendererComponent\n+  };\n+\n+  // Column Definitions\n+  colDefs: ColDef[] = [\n+    {\n+      field: 'name',\n+      headerName: 'Name',\n+      filter: true,\n+      sortable: true,\n+      cellRenderer: 'nameCellRenderer',\n+      minWidth: 220\n+    },\n+    {\n+      field: 'contact_number',\n+      headerName: 'Phone Number',\n+      filter: true,\n+      sortable: true,\n+      minWidth: 150\n+    },\n+    {\n+      field: 'clinic_id',\n+      headerName: 'Clinic',\n+      filter: true,\n+      sortable: true,\n+      cellRenderer: 'clinicCellRenderer',\n+      minWidth: 220\n+    },\n+    {\n+      headerName: 'Verification Status',\n+      field: 'verification',\n+      cellRenderer: 'verificationBadgeCellRenderer',\n+      minWidth: 150\n+    },\n+    {\n+      field: 'status',\n+      headerName: 'Status',\n+      cellRenderer: 'statusToggleCellRenderer',\n+      minWidth: 100\n+    },\n+    {\n+      headerName: 'Action',\n+      field: 'action',\n+      sortable: false,\n+      filter: false,\n+      cellRenderer: 'actionCellRenderer',\n+      width: 120\n+    }\n+  ];\n+\n+  receptionistForm: FormGroup;\n+  imagePreview: string | null = null;\n+  selectedFile: File | null = null;\n+  selectedBlob: Blob | null = null;\n+  clinicsList: any[] = [];\n+\n+  constructor(\n+    private receptionistService: ReceptionistService, \n+    private customService: CustomService, \n+    private fb: FormBuilder, \n+    private alertService: SweetAlertService\n+  ) {\n+    this.receptionistForm = this.fb.group({\n+      first_name: ['', Validators.required],\n+      last_name: ['', Validators.required],\n+      email: ['', [Validators.required, Validators.email]],\n+      username: ['', Validators.required],\n+      gender: ['Male'],\n+      mobile: ['', Validators.required],\n+      password: ['', Validators.required],\n+      confirm_password: ['', Validators.required],\n+      dob: [''],\n+      status: [true],\n+      clinic_id: ['', Validators.required],\n+      address: [''],\n+      country: [''],\n+      state: [''],\n+      city: [''],\n+      pincode: [''],\n+      image: [null]\n+    }, { validators: this.passwordMatchValidator });\n+  }\n+\n+  passwordMatchValidator(form: FormGroup) {\n+    return form.get('password')?.value === form.get('confirm_password')?.value ? null : { passwordMismatch: true };\n+  }\n+\n+  ngOnInit() {\n+    this.getReceptionistData();\n+    this.getCountryData();\n+    this.getClinicsData();\n+  }\n+\n+  getReceptionistData() {\n+    this.receptionistService.getReceptionistList().subscribe(receptionists => {\n+      console.log('Receptionist data:', JSON.stringify(receptionists, null, 2));\n+      \n+      // Map the data to ensure it has the expected structure\n+      this.rowData = receptionists.map((receptionist: any) => {\n+        return {\n+          ...receptionist,\n+          // Ensure mobile field is mapped to contact_number if needed\n+          contact_number: receptionist.contact_number || receptionist.mobile,\n+          // Make sure clinic_id is available\n+          clinic_id: receptionist.clinic_id,\n+          // Ensure status is a boolean\n+          status: receptionist.status === 1 || \n+                  receptionist.status === true || \n+                  receptionist.status === 'active' || \n+                  receptionist.status === '1',\n+          // Make sure profile_image is available\n+          profile_image: receptionist.profile_image || receptionist.image\n+        };\n+      });\n+    });\n+  }\n+\n+  getClinicsData() {\n+    // Assuming there's a method to get clinics in your CustomService\n+    this.customService.getClinicsList().subscribe(clinics => {\n+      this.clinicsList = clinics;\n+    });\n+  }\n+\n+  getCountryData() {\n+    this.customService.getCountryList().subscribe(country => {\n+      this.countryArray = country;\n+    });\n+  }\n+\n+  onCountryChange(data: any): void {\n+    this.getStateData(data.value);\n+  }\n+\n+  getStateData(id: Number) {\n+    this.customService.getStateList(id).subscribe(states => {\n+      this.stateArray = states;\n+    });\n+  }\n+\n+  onStateChange(data: any): void {\n+    this.getCityData(data.value);\n+  }\n+\n+  getCityData(stateId: Number) {\n+    this.customService.getCityList(stateId).subscribe(cities => {\n+      this.cityArray = cities;\n+    });\n+  }\n+\n+  // Format date for display\n+  private formatDate(dateString: string): string {\n+    if (!dateString) return '';\n+    const date = new Date(dateString);\n+    return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();\n+  }\n+\n+  exportToExcel(): void {\n+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.rowData);\n+    const workbook: XLSX.WorkBook = {\n+      Sheets: { 'Receptionists': worksheet },\n+      SheetNames: ['Receptionists']\n+    };\n+    const excelBuffer: any = XLSX.write(workbook, {\n+      bookType: 'xlsx',\n+      type: 'array'\n+    });\n+\n+    const data: Blob = new Blob([excelBuffer], {\n+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'\n+    });\n+\n+    FileSaver.saveAs(data, 'receptionist-data.xlsx');\n+  }\n+\n+  open() {\n+    this.drawer.open();\n+  }\n+\n+  toggle() {\n+    this.drawer.toggle();\n+  }\n+\n+  onCancel(): void {\n+    this.drawer.close();\n+    this.receptionistForm.reset();\n+    this.selectedFile = null;\n+    this.imagePreview = null;\n+  }\n+\n+  onCloseDialog() {\n+    this.drawer.close();\n+  }\n+\n+  onFileSelected(event: Event): void {\n+    const input = event.target as HTMLInputElement;\n+    if (input.files && input.files[0]) {\n+      const file = input.files[0];\n+\n+      // Validate file type\n+      if (!file.type.match('image.*')) {\n+        alert('Please select an image file');\n+        return;\n+      }\n+\n+      // Convert File to Blob\n+      this.selectedBlob = new Blob([file], { type: file.type });\n+      this.receptionistForm.patchValue({ image: this.selectedBlob });\n+\n+      this.selectedFile = file;\n+      this.receptionistForm.patchValue({ image: file });\n+\n+      // Create preview\n+      const reader = new FileReader();\n+      reader.onload = (e: any) => {\n+        this.imagePreview = e.target.result;\n+      };\n+      reader.readAsDataURL(file);\n+    }\n+  }\n+\n+  removeImage(): void {\n+    this.selectedFile = null;\n+    this.imagePreview = null;\n+    this.receptionistForm.patchValue({ image: null });\n+  }\n+\n+  onSubmit(): void {\n+    if (this.receptionistForm.valid) {\n+      const payload = {\n+        ...this.receptionistForm.value,\n+        name: this.receptionistForm.value.first_name + ' ' + this.receptionistForm.value.last_name\n+      };\n+      if (this.currentReceptionistId) {\n+        this.receptionistService.updateReceptionistData(this.currentReceptionistId, payload).subscribe(() => {\n+          this.getReceptionistData();\n+          this.drawer.close();\n+          this.currentReceptionistId = null;\n+        });\n+      } else {\n+        this.receptionistService.saveReceptionist(payload).subscribe(() => {\n+          this.getReceptionistData();\n+          this.drawer.close();\n+        });\n+      }\n+    }\n+  }\n+\n+  edit(id: string | null) {\n+    this.receptionistViewFlag = false;\n+    this.receptionistService.getReceptionistData(id).subscribe((receptionist: any) => {\n+      this.currentReceptionistId = id;\n+      // Load states and cities together if needed\n+      if (receptionist.country) {\n+        forkJoin({\n+          states: this.customService.getStateList(receptionist.country),\n+          cities: receptionist.state ? this.customService.getCityList(receptionist.state) : [],\n+        }).subscribe(({ states, cities }) => {\n+          this.stateArray = states;\n+          this.cityArray = cities;\n+          this.assignValues(receptionist);\n+          this.drawer.open();\n+        });\n+      } else {\n+        this.assignValues(receptionist);\n+        this.drawer.open();\n+      }\n+    });\n+  }\n+\n+  assignValues(receptionist: any) {\n+    this.receptionistForm.patchValue({\n+      first_name: receptionist.name?.split(' ')[0] || '',\n+      last_name: receptionist.name?.split(' ')[1] || '',\n+      email: receptionist.email,\n+      username: receptionist.username || '',\n+      gender: receptionist.gender || 'Male',\n+      mobile: receptionist.mobile || receptionist.contact_number,\n+      password: '',\n+      confirm_password: '',\n+      dob: receptionist.dob || '',\n+      status: receptionist.status,\n+      clinic_id: receptionist.clinic_id,\n+      address: receptionist.address,\n+      pincode: receptionist.pincode,\n+      country: receptionist.country,\n+      state: receptionist.state,\n+      city: receptionist.city\n+    });\n+  }\n+\n+  delete(id: string | null) {\n+    const sub = \"delete\";\n+    this.receptionistService.deleteReceptionist(id).subscribe(() => {\n+      this.alertService.executeExample(sub);\n+      this.getReceptionistData();\n+    });\n+  }\n+\n+  onSelectionChanged(event: any) {\n+    const selectedRows = event.api.getSelectedRows();\n+\n+    if (selectedRows.length === this.rowData.length) {\n+      this.enableApplySelectionTag = false;\n+    } else if (selectedRows.length === 0) {\n+      this.allRowsSelected = true;\n+    } else {\n+      this.allRowsSelected = true;\n+    }\n+  }\n+\n+  optionSelected() {\n+    if (this.actionData == 1 || this.actionData == 2) {\n+      this.allRowsSelected = false;\n+    } else {\n+      this.allRowsSelected = true;\n+    }\n+  }\n+\n+  applyAction() {\n+    if (this.actionData == 1) {\n+      const sub = \"delete\";\n+      this.receptionistService.deleteAllReceptionists().subscribe(() => {\n+        this.alertService.executeExample(sub);\n+        this.getReceptionistData();\n+      });\n+    }\n+  }\n+}\n",
+        "new_path": "src/app/views/recepetionist/receptionist-list/receptionist-list.component.ts",
+        "old_path": "src/app/views/recepetionist/receptionist-list/receptionist-list.component.ts",
+        "a_mode": "0",
+        "b_mode": "100644",
+        "new_file": true,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -0,0 +1,116 @@\n+import { CommonModule } from '@angular/common';\n+import { Component } from '@angular/core';\n+import { ICellRendererAngularComp } from 'ag-grid-angular';\n+import { ICellRendererParams } from 'ag-grid-community';\n+import { ReceptionistService } from '../service/receptionist.service';\n+import { FormsModule } from '@angular/forms';\n+\n+@Component({\n+  selector: 'app-status-toggle-cell-renderer',\n+  standalone: true,\n+  imports: [CommonModule, FormsModule],\n+  template: `\n+    <label class=\"switch\">\n+      <input type=\"checkbox\" [checked]=\"isActive\" (change)=\"toggleStatus($event)\">\n+      <span class=\"slider round\"></span>\n+    </label>\n+  `,\n+  styles: [`\n+    .switch {\n+      position: relative;\n+      display: inline-block;\n+      width: 40px;\n+      height: 22px;\n+    }\n+    .switch input { \n+      opacity: 0;\n+      width: 0;\n+      height: 0;\n+    }\n+    .slider {\n+      position: absolute;\n+      cursor: pointer;\n+      top: 0; left: 0; right: 0; bottom: 0;\n+      background-color: #ccc;\n+      transition: .4s;\n+      border-radius: 22px;\n+    }\n+    .slider:before {\n+      position: absolute;\n+      content: \"\";\n+      height: 18px;\n+      width: 18px;\n+      left: 2px;\n+      bottom: 2px;\n+      background-color: white;\n+      transition: .4s;\n+      border-radius: 50%;\n+    }\n+    input:checked + .slider {\n+      background-color: #5670cc;\n+    }\n+    input:checked + .slider:before {\n+      transform: translateX(18px);\n+    }\n+    .slider.round {\n+      border-radius: 22px;\n+    }\n+    .slider.round:before {\n+      border-radius: 50%;\n+    }\n+  `]\n+})\n+export class StatusToggleCellRendererComponent implements ICellRendererAngularComp {\n+  params: any;\n+  isActive: boolean = false;\n+  \n+  constructor(private receptionistService: ReceptionistService) {}\n+\n+  agInit(params: ICellRendererParams): void { \n+    this.params = params;\n+    this.isActive = this.getStatusValue();\n+  }\n+  \n+  refresh(params: ICellRendererParams): boolean { \n+    this.params = params;\n+    this.isActive = this.getStatusValue();\n+    return true; \n+  }\n+  \n+  getStatusValue(): boolean {\n+    const data = this.params.data;\n+    if (data) {\n+      if (typeof data.status === 'boolean') {\n+        return data.status;\n+      } else if (typeof data.status === 'number') {\n+        return data.status === 1;\n+      } else if (typeof data.status === 'string') {\n+        return data.status.toLowerCase() === 'active' || \n+               data.status.toLowerCase() === 'true' || \n+               data.status === '1';\n+      }\n+    }\n+    return false;\n+  }\n+\n+  toggleStatus(event: any): void {\n+    const newStatus = event.target.checked;\n+    const receptionistId = this.params.data.id;\n+    if (!receptionistId) return;\n+    this.receptionistService.getReceptionistData(receptionistId).subscribe(\n+      (receptionist: any) => {\n+        const updatedData = {\n+          ...receptionist,\n+          status: newStatus ? 1 : 0\n+        };\n+        this.receptionistService.updateReceptionistData(receptionistId, updatedData).subscribe(\n+          () => {\n+            if (this.params.context && this.params.context.componentParent) {\n+              this.params.context.componentParent.getReceptionistData();\n+            }\n+          }\n+        );\n+      }\n+    );\n+  }\n+} \n\\ No newline at end of file\n",
+        "new_path": "src/app/views/recepetionist/receptionist-list/status-toggle-cell-renderer.component.ts",
+        "old_path": "src/app/views/recepetionist/receptionist-list/status-toggle-cell-renderer.component.ts",
+        "a_mode": "0",
+        "b_mode": "100644",
+        "new_file": true,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -0,0 +1,75 @@\n+import { CommonModule } from '@angular/common';\n+import { Component } from '@angular/core';\n+import { ICellRendererAngularComp } from 'ag-grid-angular';\n+import { ICellRendererParams } from 'ag-grid-community';\n+\n+@Component({\n+  selector: 'app-verification-badge-cell-renderer',\n+  standalone: true,\n+  imports: [CommonModule],\n+  template: `\n+    <span [ngClass]=\"badgeClass\">{{ verificationText }}</span>\n+  `,\n+  styles: [`\n+    .badge {\n+      border-radius: 6px;\n+      padding: 4px 12px;\n+      font-size: 14px;\n+      font-weight: 500;\n+      display: inline-block;\n+    }\n+    .badge-verified {\n+      background: #e6f4ea;\n+      color: #219653;\n+    }\n+    .badge-pending {\n+      background: #fff8e6;\n+      color: #f2994a;\n+    }\n+    .badge-unverified {\n+      background: #fbe9e7;\n+      color: #d32f2f;\n+    }\n+  `]\n+})\n+export class VerificationBadgeCellRendererComponent implements ICellRendererAngularComp {\n+  verificationText: string = 'Verified';\n+  badgeClass: string = 'badge badge-verified';\n+  \n+  agInit(params: ICellRendererParams): void {\n+    console.log('Verification cell data:', params.data);\n+    this.updateVerificationStatus(params.data);\n+  }\n+  \n+  refresh(params: ICellRendererParams): boolean { \n+    this.updateVerificationStatus(params.data);\n+    return true; \n+  }\n+  \n+  updateVerificationStatus(data: any): void {\n+    // Default to verified if no verification field\n+    if (!data || data.verification === undefined) {\n+      this.verificationText = 'Verified';\n+      this.badgeClass = 'badge badge-verified';\n+      return;\n+    }\n+    \n+    const status = data.verification;\n+    \n+    if (status === true || status === 1 || status === '1' || \n+        (typeof status === 'string' && status.toLowerCase() === 'verified')) {\n+      this.verificationText = 'Verified';\n+      this.badgeClass = 'badge badge-verified';\n+    } else if (status === false || status === 0 || status === '0' || \n+               (typeof status === 'string' && status.toLowerCase() === 'unverified')) {\n+      this.verificationText = 'Unverified';\n+      this.badgeClass = 'badge badge-unverified';\n+    } else if (typeof status === 'string' && status.toLowerCase() === 'pending') {\n+      this.verificationText = 'Pending';\n+      this.badgeClass = 'badge badge-pending';\n+    } else {\n+      this.verificationText = 'Verified';\n+      this.badgeClass = 'badge badge-verified';\n+    }\n+  }\n+} \n\\ No newline at end of file\n",
+        "new_path": "src/app/views/recepetionist/receptionist-list/verification-badge-cell-renderer.component.ts",
+        "old_path": "src/app/views/recepetionist/receptionist-list/verification-badge-cell-renderer.component.ts",
+        "a_mode": "0",
+        "b_mode": "100644",
+        "new_file": true,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -0,0 +1,16 @@\n+import { TestBed } from '@angular/core/testing';\n+\n+import { ReceptionistService } from './receptionist.service';\n+\n+describe('ReceptionistService', () => {\n+  let service: ReceptionistService;\n+\n+  beforeEach(() => {\n+    TestBed.configureTestingModule({});\n+    service = TestBed.inject(ReceptionistService);\n+  });\n+\n+  it('should be created', () => {\n+    expect(service).toBeTruthy();\n+  });\n+});\n",
+        "new_path": "src/app/views/recepetionist/service/receptionist.service.spec.ts",
+        "old_path": "src/app/views/recepetionist/service/receptionist.service.spec.ts",
+        "a_mode": "0",
+        "b_mode": "100644",
+        "new_file": true,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -0,0 +1,56 @@\n+import { Injectable } from '@angular/core';\n+import { environment } from '@/environments/environment';\n+import { HttpClient } from '@angular/common/http';\n+import { map, Observable } from 'rxjs';\n+\n+@Injectable({\n+  providedIn: 'root'\n+})\n+export class ReceptionistService {\n+\n+  private apiUrl = environment.serverUrl;\n+  \n+    \n+  constructor(protected http: HttpClient) { }\n+\n+  getReceptionistList(): Observable<any> {\n+    return this.http\n+      .get<any>(`${this.apiUrl}/admin/receptionists`, { observe: 'response' })\n+      .pipe(map((res) => {\n+        const data = res.body;\n+        // Log the raw response data\n+        console.log('Raw API response:', JSON.stringify(data, null, 2));\n+        return data;\n+      }));\n+  }\n+\n+  saveReceptionist(data:any): Observable<any> {\n+    return this.http\n+      .post<any>(`${this.apiUrl}/admin/receptionists`,data, { observe: 'response' })\n+      .pipe(map((res) => res.body));\n+  }\n+\n+  getReceptionistData(id:any): Observable<any> {\n+    return this.http\n+      .get<any>(`${this.apiUrl}/admin/receptionists/${id}`, { observe: 'response' })\n+      .pipe(map((res) => res.body));\n+  }\n+\n+  updateReceptionistData(id:any, data:any): Observable<any> {\n+    return this.http\n+      .put<any>(`${this.apiUrl}/admin/receptionists/${id}`,data, { observe: 'response' })\n+      .pipe(map((res) => res.body));\n+  }\n+\n+  deleteReceptionist(id:any): Observable<any> {\n+    return this.http\n+      .delete<any>(`${this.apiUrl}/admin/receptionists/${id}`, { observe: 'response' })\n+      .pipe(map((res) => res.body));\n+  }\n+\n+  deleteAllReceptionists(): Observable<any> {\n+    return this.http\n+      .delete<any>(`${this.apiUrl}/admin/receptionists`, { observe: 'response' })\n+      .pipe(map((res) => res.body));\n+  }\n+}\n",
+        "new_path": "src/app/views/recepetionist/service/receptionist.service.ts",
+        "old_path": "src/app/views/recepetionist/service/receptionist.service.ts",
+        "a_mode": "0",
+        "b_mode": "100644",
+        "new_file": true,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -3,10 +3,11 @@ import { DashboardComponent } from './dashboard/dashboard.component'\n import { AppointmentListComponent } from './appointments/appointment-list/appointment-list.component'\n import { ClinicListComponent } from './clinics/clinic-list/clinic-list.component'\n \n+\n export const VIEW_ROUTES: Route[] = [\n   {\n     path: 'dashboard',\n-    component: DashboardComponent\n+    component: DashboardComponent,\n   },\n   {\n     path: 'appointments',\n",
+        "new_path": "src/app/views/views.route.ts",
+        "old_path": "src/app/views/views.route.ts",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -1,4 +1,4 @@\n export const environment = {\n     production: false,\n-    serverUrl: 'http://192.168.10.58:8080/api' \n+    serverUrl: 'http://192.168.10.87:8080/api' // Development server URL\n   };\n\\ No newline at end of file\n",
+        "new_path": "src/environments/environment.ts",
+        "old_path": "src/environments/environment.ts",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      },
+      {
+        "diff": "@@ -8,7 +8,6 @@\n   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n   <link rel=\"icon\" type=\"image/x-icon\" href=\"favicon.ico\" />\n   <script src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyAbvyBxmMbFhrzP9Z8moyYr6dCr-pzjhBE\"></script>\n-  <link href=\"https://fonts.googleapis.com/icon?family=Material+Icons\" rel=\"stylesheet\">\n   <style>\n     #splash-screen {\n       position: fixed;\n",
+        "new_path": "src/index.html",
+        "old_path": "src/index.html",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      }
+    ],
+    "compare_timeout": false,
+    "compare_same_ref": false,
+    "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/compare/52f66d2f7944eecabfa32ba4065498eff6e3a6a0...da77a806c35b7051102330e5b68ee3222eb4fee8"
+  },
+  {
+    "commit": {
+      "id": "52f66d2f7944eecabfa32ba4065498eff6e3a6a0",
+      "short_id": "52f66d2f",
+      "created_at": "2025-05-16T09:09:11.000+05:30",
+      "parent_ids": [
+        "5937e8c0071ede034ca4920f23cb63110de484dd"
+      ],
+      "title": "clinic view changes not reflecting",
+      "message": "clinic view changes not reflecting\n",
+      "author_name": "ashok-jat",
+      "author_email": "ashok.jat@hashstudioz.com",
+      "authored_date": "2025-05-16T09:09:11.000+05:30",
+      "committer_name": "ashok-jat",
+      "committer_email": "ashok.jat@hashstudioz.com",
+      "committed_date": "2025-05-16T09:09:11.000+05:30",
+      "trailers": {},
+      "extended_trailers": {},
+      "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/52f66d2f7944eecabfa32ba4065498eff6e3a6a0"
+    },
+    "commits": [
+      {
+        "id": "52f66d2f7944eecabfa32ba4065498eff6e3a6a0",
+        "short_id": "52f66d2f",
+        "created_at": "2025-05-16T09:09:11.000+05:30",
+        "parent_ids": [
+          "5937e8c0071ede034ca4920f23cb63110de484dd"
+        ],
+        "title": "clinic view changes not reflecting",
+        "message": "clinic view changes not reflecting\n",
+        "author_name": "ashok-jat",
+        "author_email": "ashok.jat@hashstudioz.com",
+        "authored_date": "2025-05-16T09:09:11.000+05:30",
+        "committer_name": "ashok-jat",
+        "committer_email": "ashok.jat@hashstudioz.com",
+        "committed_date": "2025-05-16T09:09:11.000+05:30",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/commit/52f66d2f7944eecabfa32ba4065498eff6e3a6a0"
+      }
+    ],
+    "diffs": [
+      {
+        "diff": "@@ -1,4 +1,4 @@\n export const environment = {\n     production: false,\n-    serverUrl: 'http://192.168.10.58:8080/api' // Development server URL\n+    serverUrl: 'http://192.168.10.58:8080/api' \n   };\n\\ No newline at end of file\n",
+        "new_path": "src/environments/environment.ts",
+        "old_path": "src/environments/environment.ts",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      }
+    ],
+    "compare_timeout": false,
+    "compare_same_ref": false,
+    "web_url": "https://gitlab.hashstudioz.com/ashokj/kivicare-admin/-/compare/5937e8c0071ede034ca4920f23cb63110de484dd...52f66d2f7944eecabfa32ba4065498eff6e3a6a0"
+  }
+]
